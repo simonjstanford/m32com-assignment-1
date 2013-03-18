@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>3eb3feb6-c735-4cd9-b517-f9ab024c057d</ProjectGuid>
+    <ProjectGuid>{AF337065-6C0D-4300-8D29-F4428DF73255}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TetrisHighScores</RootNamespace>
