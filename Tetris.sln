@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Website", "Website\", "{081D2A01-D37A-4841-89C9-D8D8518329BC}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{171A65AF-350C-456F-9166-789EAF235B5D}|Tetris.dll;{AF337065-6C0D-4300-8D29-F4428DF73255}|TetrisHighScores.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Website"
 		Debug.AspNetCompiler.PhysicalPath = "Website\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Website\"
