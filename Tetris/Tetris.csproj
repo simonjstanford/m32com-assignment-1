@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,7 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Board.cs" />
+    <Compile Include="enum\Roatation.cs" />
+    <Compile Include="enum\ShapeColors.cs" />
+    <Compile Include="enum\ShapeTypes.cs" />
+    <Compile Include="enum\State.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="shapes\I_Shape.cs" />
+    <Compile Include="shapes\J_Shape.cs" />
+    <Compile Include="shapes\L_Shape.cs" />
+    <Compile Include="shapes\O_Shape.cs" />
+    <Compile Include="shapes\Shape.cs" />
+    <Compile Include="shapes\S_Shape.cs" />
+    <Compile Include="shapes\T_Shape.cs" />
+    <Compile Include="shapes\Z_Shape.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
