@@ -27,6 +27,28 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris", "Tetris\Tetris.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TetrisHighScores", "TetrisHighScores\TetrisHighScores.csproj", "{AF337065-6C0D-4300-8D29-F4428DF73255}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TestWebSite", "TestWebSite\", "{F8C96A4C-6CB1-4D0F-8396-DAC33BF4619F}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{171A65AF-350C-456F-9166-789EAF235B5D}|Tetris.dll;{AF337065-6C0D-4300-8D29-F4428DF73255}|TetrisHighScores.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/TestWebSite"
+		Debug.AspNetCompiler.PhysicalPath = "TestWebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\TestWebSite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/TestWebSite"
+		Release.AspNetCompiler.PhysicalPath = "TestWebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\TestWebSite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "3204"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +67,10 @@ Global
 		{AF337065-6C0D-4300-8D29-F4428DF73255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF337065-6C0D-4300-8D29-F4428DF73255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF337065-6C0D-4300-8D29-F4428DF73255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8C96A4C-6CB1-4D0F-8396-DAC33BF4619F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C96A4C-6CB1-4D0F-8396-DAC33BF4619F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8C96A4C-6CB1-4D0F-8396-DAC33BF4619F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8C96A4C-6CB1-4D0F-8396-DAC33BF4619F}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,17 +5,17 @@ using System.Text;
 
 namespace TetrisHighScores
 {
-    public class Score : IComparable
+    public class PlayerScore : IComparable
     {
         // Fields
-        private string _name;
+        private string _player;
         private int _score;
         private DateTime _time;
 
         // Methods
         public int CompareTo(object obj)
         {
-            Score score = (Score)obj;
+            PlayerScore score = (PlayerScore)obj;
             int num = this._score.CompareTo(score.Score);
             if (num == 0)
             {
@@ -25,15 +25,15 @@ namespace TetrisHighScores
         }
 
         // Properties
-        public string Name
+        public string Player
         {
             get
             {
-                return this._name;
+                return this._player;
             }
             set
             {
-                this._name = value;
+                this._player = value;
             }
         }
 
