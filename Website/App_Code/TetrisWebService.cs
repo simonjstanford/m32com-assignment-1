@@ -39,16 +39,9 @@ public class TetrisWebService : System.Web.Services.WebService {
     }
 
     [WebMethod(EnableSession = true)]
-    public int[][] GetBoard()
+    public string[][] GetBoard()
     {
-        int[][] testretval = new int[4][];
-        return testretval;
-    }
-
-    [WebMethod(EnableSession = true)]
-    public int[][] GetNextBlock()
-    {
-        int[][] testretval = new int[4][];
+        string[][] testretval = new string[4][];
         return testretval;
     }
 
