@@ -10,7 +10,7 @@ namespace TetrisHighScores
         // Fields
         private string _player;
         private int _score;
-        private DateTime _time;
+        private DateTime _date;
 
         // Methods
         public int CompareTo(object obj)
@@ -49,15 +49,15 @@ namespace TetrisHighScores
             }
         }
 
-        public DateTime Time
+        public DateTime Date
         {
             get
             {
-                return this._time;
+                return this._date;
             }
             set
             {
-                this._time = value;
+                this._date = value;
             }
         }
     }

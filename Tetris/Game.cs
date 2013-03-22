@@ -6,15 +6,22 @@
 public sealed class Game
 {
     // Fields
-    private Board board;
-    private int score;
-    private State state;
+    private Board _board;
+    private int _score = 0;
+    private State _state = State.Playing;
+    private String _player = "Guest";
 
     // Methods
     public Game()
     {
-        board = new Board();
+        _board = new Board();
+    }
 
+    // Methods
+    public Game(String player)
+    {
+        _board = new Board();
+        _player = player;
     }
 
     private void CheckFullRows()
@@ -32,17 +39,17 @@ public sealed class Game
 
     public bool MoveBlockDown()
     {
-        return board.MoveActiveShapeDown();
+        return _board.MoveActiveShapeDown();
     }
 
     public bool MoveBlockLeft()
     {
-        return board.MoveActiveShapeDown();
+        return _board.MoveActiveShapeDown();
     }
 
     public bool MoveBlockRight()
     {
-        return board.MoveActiveShapeRight();
+        return _board.MoveActiveShapeRight();
     }
 
     public void Restart()
@@ -51,7 +58,38 @@ public sealed class Game
 
     public bool RotateBlock()
     {
-        return board.RotateActiveShape();
+        return _board.RotateActiveShape();
     }
 
+
+
+    // Properties
+    public String Player
+    {
+        get
+        {
+            return this._player;
+        }
+        set
+        {
+            this._player = value;
+        }
+    }
+
+    public int Score
+    {
+        get
+        {
+            return this._score;
+        }
+    }
+
+    public State State
+    {
+        get
+        {
+            return this._state;
+        }
+    }
+    
 }

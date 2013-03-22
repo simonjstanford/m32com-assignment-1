@@ -8,8 +8,14 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
+
+            <asp:Button ID="btnGetHighScoreWs" Text="GetHighScore (Webservice)" runat="server" 
+            onclick="btnGetHighScoreWs_Click" />
+            <br />
+                    <asp:Button ID="btnGetHighScoreDll" Text="GetHighScore (DLL)" runat="server" 
+            onclick="btnGetHighScoreDll_Click" />
+
+    <div id="Scores" runat="server">
     </div>
     </form>
 </body>

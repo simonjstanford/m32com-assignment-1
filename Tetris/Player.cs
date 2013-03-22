@@ -6,7 +6,7 @@
 public sealed class Player
 {
     // Fields
-    private String name;
+    private String _name;
 
     // Methods
     public Player()
@@ -18,7 +18,11 @@ public sealed class Player
     {
         get
         {
-            return this.Name;
+            return this._name;
+        }
+        set 
+        {
+            this._name = value;
         }
     }
 }

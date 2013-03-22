@@ -16,8 +16,15 @@ namespace TetrisHighScores
         // Fields
         private static ScoreController _instance;
         private string FileName = "Scores.xml";
-        private const int size = 12;
+        private const int SIZE = 12;
 
+
+        //Used in data table and XML file to keep field names in sync between read and write
+        const string GAMESCORE = "GameScore";
+        const string PLAYER = "Player";
+        const string SCORE = "Score";
+        const string DATE = "Date";
+        
         // Methods
         private ScoreController()
         {
@@ -30,12 +37,12 @@ namespace TetrisHighScores
             {
                 Player = player,
                 Score = score,
-                Time = DateTime.Now
+                Date = DateTime.Now
             };
             bool flag = false;
             if (item.Score != 0)
             {
-                if (list.Count < size)
+                if (list.Count < SIZE)
                 {
                     list.Add(item);
                     flag = true;
@@ -84,14 +91,14 @@ namespace TetrisHighScores
 
                     List<PlayerScore> list = new List<PlayerScore>();
                     XmlNodeList elementsByTagName = null;
-                    elementsByTagName = xmlDoc.GetElementsByTagName("GameScore");
+                    elementsByTagName = xmlDoc.GetElementsByTagName(GAMESCORE);
                     foreach (XmlNode node in elementsByTagName)
                     {
                         PlayerScore item = new PlayerScore
                         {
-                            Score = Convert.ToInt32(node["Score"].InnerText),
-                            Player = node["Player"].InnerText,
-                            Time = Convert.ToDateTime(node["Time"].InnerText)
+                            Player = node[PLAYER].InnerText,
+                            Score = Convert.ToInt32(node[SCORE].InnerText),
+                            Date = Convert.ToDateTime(node[DATE].InnerText)
                         };
                         list.Add(item);
                     }
@@ -134,30 +141,26 @@ namespace TetrisHighScores
                 foreach (PlayerScore score in scores)
                 {
                     XmlNode documentElement = xmlDoc.DocumentElement;
-                    XmlElement newChild = xmlDoc.CreateElement("GameScore");
-                    XmlElement element2 = xmlDoc.CreateElement("Score");
-                    XmlElement element3 = xmlDoc.CreateElement("Player");
-                    XmlElement element4 = xmlDoc.CreateElement("Time");
-                    XmlText text = xmlDoc.CreateTextNode("score");
-                    XmlText text2 = xmlDoc.CreateTextNode("player");
-                    XmlText text3 = xmlDoc.CreateTextNode("time");
-                    documentElement.AppendChild(newChild);
-                    newChild.AppendChild(element2);
-                    newChild.AppendChild(element3);
-                    newChild.AppendChild(element4);
-                    element2.AppendChild(text);
-                    element3.AppendChild(text2);
-                    element4.AppendChild(text3);
-                    text.Value = score.Score.ToString();
-                    text2.Value = score.Player;
-                    text3.Value = score.Time.ToString();
+                    XmlElement gameScoreElement = xmlDoc.CreateElement(GAMESCORE);
+                    XmlElement playerElement = xmlDoc.CreateElement(PLAYER);
+                    XmlElement scoreElement = xmlDoc.CreateElement(SCORE);
+                    XmlElement dateElement = xmlDoc.CreateElement(DATE);
+                    XmlText playerText = xmlDoc.CreateTextNode(PLAYER);
+                    XmlText scoreText = xmlDoc.CreateTextNode(SCORE);
+                    XmlText dateText = xmlDoc.CreateTextNode(DATE);
+                    documentElement.AppendChild(gameScoreElement);
+                    gameScoreElement.AppendChild(playerElement);
+                    gameScoreElement.AppendChild(scoreElement);
+                    gameScoreElement.AppendChild(dateElement);
+                    gameScoreElement.AppendChild(playerText);
+                    gameScoreElement.AppendChild(scoreElement);
+                    gameScoreElement.AppendChild(dateText);
+                    scoreElement.Value = score.Score.ToString();
+                    playerElement.Value = score.Player;
+                    dateElement.Value = score.Date.ToString();
 
                     // Encrypt the "Player" element.
-                    TrippleDESDocumentEncryption.Encrypt(xmlDoc, "Player", rsaKey, "rsaKey");
-
-                    //    XmlEncryptionController.Encrypt(doc, "GameScore", "EncryptedGameScore", alg, "rsaKey");
-                    //    XmlEncryptionController.Encrypt(doc, "GamePlayer", "EncryptedGamePlayer", alg, "rsaKey");
-                    //    XmlEncryptionController.Encrypt(doc, "GameScoreTime", "EncryptedGameScoreTime", alg, "rsaKey");
+                    TrippleDESDocumentEncryption.Encrypt(xmlDoc, PLAYER, rsaKey, "rsaKey");
                 }
                 xmlDoc.Save(this.FileName);
             }
@@ -167,16 +170,38 @@ namespace TetrisHighScores
             }
         }
 
- 
-
-
-
-
-
-
         public DataTable getScoreTable()
         {
-            return new DataTable();
+            DataTable scoreTable = new DataTable(GAMESCORE);
+            DataColumn playerColumn = new DataColumn(PLAYER);
+            playerColumn.DataType = Type.GetType("System.String");
+            playerColumn.ReadOnly = false;
+            playerColumn.Unique = false;
+            scoreTable.Columns.Add(playerColumn);
+
+            DataColumn scoreColumn = new DataColumn(SCORE);
+            scoreColumn.DataType = Type.GetType("System.String");
+            scoreColumn.ReadOnly = false;
+            scoreColumn.Unique = false;
+            scoreTable.Columns.Add(scoreColumn);
+
+            DataColumn dateColumn = new DataColumn(DATE);
+            dateColumn.DataType = Type.GetType("System.String");
+            dateColumn.ReadOnly = false;
+            dateColumn.Unique = false;
+            scoreTable.Columns.Add(scoreColumn);
+
+            List<PlayerScore> scoresList = this.LoadScores();
+
+            foreach (PlayerScore score in scoresList) 
+            {
+                DataRow scoreRow = scoreTable.NewRow();
+                scoreRow[PLAYER] = score.Player;
+                scoreRow[SCORE] = score.Score;
+                scoreRow[DATE] = score.Date;
+                scoreTable.Rows.Add(scoreRow);
+            }
+            return scoreTable;
         }
 
         public void setLocation(string Location)
