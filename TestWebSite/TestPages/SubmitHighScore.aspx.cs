@@ -11,11 +11,6 @@ public partial class TestPages_SubmitHighScore : System.Web.UI.Page
     {
 
     }
-    protected void btnSubmitHighScoreWs_Click(object sender, EventArgs e)
-    {
-        TetrisWebService.TetrisWebService ws = new TetrisWebService.TetrisWebService();
-        ws.SubmitScore();
-    }
 
     protected void btnSubmitHighScoreDll_Click(object sender, EventArgs e)
     {

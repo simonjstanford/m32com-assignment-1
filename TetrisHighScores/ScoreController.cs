@@ -20,7 +20,8 @@ namespace TetrisHighScores
 
 
         //Used in data table and XML file to keep field names in sync between read and write
-        const string GAMESCORE = "GameScore";
+        const string SCORES = "Scores";
+        const string HIGHSCORE = "HighScore";
         const string PLAYER = "Player";
         const string SCORE = "Score";
         const string DATE = "Date";
@@ -30,9 +31,9 @@ namespace TetrisHighScores
         {
         }
 
-        public bool Add(string player, int score)
+        public bool Add(string player, Int32 score)
         {
-            List<PlayerScore> list = this.LoadScores();
+            List<PlayerScore> list = LoadScores();
             PlayerScore item = new PlayerScore
             {
                 Player = player,
@@ -61,14 +62,14 @@ namespace TetrisHighScores
             }
             if (flag)
             {
-                this.SaveScores(list);
+                SaveScores(list);
             }
             return flag;
         }
 
         private List<PlayerScore> LoadScores()
         {
-            if (File.Exists(this.FileName))
+            if (File.Exists(FileName))
             {
                 try
                 {
@@ -76,7 +77,7 @@ namespace TetrisHighScores
                     {
                         PreserveWhitespace = true
                     };
-                    xmlDoc.Load(this.FileName);
+                    xmlDoc.Load(FileName);
 
                     // Create a new RSA key.  This key will encrypt a symmetric key,
                     // which will then be imbedded in the XML document.
@@ -91,7 +92,7 @@ namespace TetrisHighScores
 
                     List<PlayerScore> list = new List<PlayerScore>();
                     XmlNodeList elementsByTagName = null;
-                    elementsByTagName = xmlDoc.GetElementsByTagName(GAMESCORE);
+                    elementsByTagName = xmlDoc.GetElementsByTagName(HIGHSCORE);
                     foreach (XmlNode node in elementsByTagName)
                     {
                         PlayerScore item = new PlayerScore
@@ -117,16 +118,16 @@ namespace TetrisHighScores
             try
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                XmlTextWriter writer = new XmlTextWriter(this.FileName, Encoding.UTF8)
+                XmlTextWriter writer = new XmlTextWriter(FileName, Encoding.UTF8)
                 {
                     Formatting = Formatting.Indented
                 };
                 writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8'");
-                writer.WriteStartElement("Scores");
+                writer.WriteStartElement(SCORES);
                 writer.Close();
                 //Blank the file
                 xmlDoc.PreserveWhitespace = true;
-                xmlDoc.Load(this.FileName);
+                xmlDoc.Load(FileName);
 
                 // Create a new RSA key.  This key will encrypt a symmetric key,
                 // which will then be imbedded in the XML document.  
@@ -140,29 +141,36 @@ namespace TetrisHighScores
 
                 foreach (PlayerScore score in scores)
                 {
-                    XmlNode documentElement = xmlDoc.DocumentElement;
-                    XmlElement gameScoreElement = xmlDoc.CreateElement(GAMESCORE);
-                    XmlElement playerElement = xmlDoc.CreateElement(PLAYER);
-                    XmlElement scoreElement = xmlDoc.CreateElement(SCORE);
-                    XmlElement dateElement = xmlDoc.CreateElement(DATE);
-                    XmlText playerText = xmlDoc.CreateTextNode(PLAYER);
-                    XmlText scoreText = xmlDoc.CreateTextNode(SCORE);
-                    XmlText dateText = xmlDoc.CreateTextNode(DATE);
-                    documentElement.AppendChild(gameScoreElement);
-                    gameScoreElement.AppendChild(playerElement);
-                    gameScoreElement.AppendChild(scoreElement);
-                    gameScoreElement.AppendChild(dateElement);
-                    gameScoreElement.AppendChild(playerText);
-                    gameScoreElement.AppendChild(scoreElement);
-                    gameScoreElement.AppendChild(dateText);
-                    scoreElement.Value = score.Score.ToString();
-                    playerElement.Value = score.Player;
-                    dateElement.Value = score.Date.ToString();
+                    XmlNode documentNode = xmlDoc.DocumentElement;
+                    
+                    XmlElement highScoreChild = xmlDoc.CreateElement(HIGHSCORE);
+                    
+                    XmlElement ScoreElement = xmlDoc.CreateElement(SCORE);
+                    XmlElement PlayerElement = xmlDoc.CreateElement(PLAYER);
+                    XmlElement DateElement = xmlDoc.CreateElement(DATE);
+                    
+                    XmlText scoreText = xmlDoc.CreateTextNode("score");
+                    XmlText playerText = xmlDoc.CreateTextNode("player");
+                    XmlText dateText = xmlDoc.CreateTextNode("date");
+                    
+                    documentNode.AppendChild(highScoreChild);
+                    
+                    highScoreChild.AppendChild(ScoreElement);
+                    highScoreChild.AppendChild(PlayerElement);
+                    highScoreChild.AppendChild(DateElement);
+                    
+                    ScoreElement.AppendChild(scoreText);
+                    PlayerElement.AppendChild(playerText);
+                    DateElement.AppendChild(dateText);
+                    
+                    scoreText.Value = score.Score.ToString();
+                    playerText.Value = score.Player;
+                    dateText.Value = score.Date.ToString();
 
                     // Encrypt the "Player" element.
                     TrippleDESDocumentEncryption.Encrypt(xmlDoc, PLAYER, rsaKey, "rsaKey");
                 }
-                xmlDoc.Save(this.FileName);
+                xmlDoc.Save(FileName);
             }
             catch (Exception exception4)
             {
@@ -172,7 +180,7 @@ namespace TetrisHighScores
 
         public DataTable getScoreTable()
         {
-            DataTable scoreTable = new DataTable(GAMESCORE);
+            DataTable scoreTable = new DataTable(SCORES);
             DataColumn playerColumn = new DataColumn(PLAYER);
             playerColumn.DataType = Type.GetType("System.String");
             playerColumn.ReadOnly = false;
@@ -180,18 +188,18 @@ namespace TetrisHighScores
             scoreTable.Columns.Add(playerColumn);
 
             DataColumn scoreColumn = new DataColumn(SCORE);
-            scoreColumn.DataType = Type.GetType("System.String");
+            scoreColumn.DataType = Type.GetType("System.Int32");
             scoreColumn.ReadOnly = false;
             scoreColumn.Unique = false;
             scoreTable.Columns.Add(scoreColumn);
 
             DataColumn dateColumn = new DataColumn(DATE);
-            dateColumn.DataType = Type.GetType("System.String");
+            dateColumn.DataType = Type.GetType("System.DateTime");
             dateColumn.ReadOnly = false;
             dateColumn.Unique = false;
-            scoreTable.Columns.Add(scoreColumn);
+            scoreTable.Columns.Add(dateColumn);
 
-            List<PlayerScore> scoresList = this.LoadScores();
+            List<PlayerScore> scoresList = LoadScores();
 
             foreach (PlayerScore score in scoresList) 
             {
@@ -206,7 +214,7 @@ namespace TetrisHighScores
 
         public void setLocation(string Location)
         {
-            this.FileName = Location;
+            FileName = Location;
         }
 
         // Properties

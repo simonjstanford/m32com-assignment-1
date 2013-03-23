@@ -9,17 +9,17 @@ namespace TetrisHighScores
     {
         // Fields
         private string _player;
-        private int _score;
+        private Int32 _score;
         private DateTime _date;
 
         // Methods
         public int CompareTo(object obj)
         {
             PlayerScore score = (PlayerScore)obj;
-            int num = this._score.CompareTo(score.Score);
+            Int32 num = _score.CompareTo(score.Score);
             if (num == 0)
             {
-                num = this._score.CompareTo(score.Score);
+                num = _score.CompareTo(score.Score);
             }
             return num;
         }
@@ -29,23 +29,23 @@ namespace TetrisHighScores
         {
             get
             {
-                return this._player;
+                return _player;
             }
             set
             {
-                this._player = value;
+                _player = value;
             }
         }
 
-        public int Score
+        public Int32 Score
         {
             get
             {
-                return this._score;
+                return _score;
             }
             set
             {
-                this._score = value;
+                _score = value;
             }
         }
 
@@ -53,11 +53,11 @@ namespace TetrisHighScores
         {
             get
             {
-                return this._date;
+                return _date;
             }
             set
             {
-                this._date = value;
+                _date = value;
             }
         }
     }

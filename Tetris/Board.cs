@@ -8,46 +8,46 @@ using System.Web;
 /// </summary>
 public class Board
 {
-    public string[,] board;
-    private Shape activeShape;
-    private Shape nextShape;
-    private int boardWidth;
-    private int boardHeight;
+    public string[,] _board;
+    private Shape _activeShape;
+    private Shape _nextShape;
+    private int _boardWidth;
+    private int _boardHeight;
 
 	public Board()
 	{
-        boardHeight = 50;
-        boardWidth = 30;
+        _boardHeight = 50;
+        _boardWidth = 30;
         
         startGame();
 	}
 
     private void startGame()
     {
-        board = new string[boardWidth, boardHeight];
-        activeShape = getRandomShape();
-        nextShape = getRandomShape();
+        _board = new string[_boardWidth, _boardHeight];
+        _activeShape = getRandomShape();
+        _nextShape = getRandomShape();
     }
 
     public bool MoveActiveShapeLeft()
     {
 
-        return activeShape.MoveLeft(board); //return true if shape moved, false otherwise
+        return _activeShape.MoveLeft(_board); //return true if shape moved, false otherwise
     }
 
     public bool MoveActiveShapeRight()
     {
 
-        return activeShape.MoveRight(board); //return true if shape moved, false otherwise
+        return _activeShape.MoveRight(_board); //return true if shape moved, false otherwise
     }
 
     public bool MoveActiveShapeDown()
     {
 
-        if (activeShape.MoveDown(board))
+        if (_activeShape.MoveDown(_board))
         {
-            activeShape = nextShape;
-            nextShape = getRandomShape();
+            _activeShape = _nextShape;
+            _nextShape = getRandomShape();
             
             return false;
         }
@@ -62,12 +62,21 @@ public class Board
 
     private Shape getRandomShape()
     {
-        throw new NotImplementedException();
+        return new I_Shape(4,4);
     }
 
     public bool RotateActiveShape()
     {
-
-        return activeShape.Rotate(board); //return true if shape moved, false otherwise
+        return _activeShape.Rotate(_board); //return true if shape moved, false otherwise
     }
+
+    // Properties
+    public Shape NextShape
+    {
+        get
+        {
+            return _nextShape;
+        }
+    }
+
 }

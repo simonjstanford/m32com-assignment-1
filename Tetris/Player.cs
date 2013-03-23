@@ -18,11 +18,11 @@ public sealed class Player
     {
         get
         {
-            return this._name;
+            return _name;
         }
         set 
         {
-            this._name = value;
+            _name = value;
         }
     }
 }

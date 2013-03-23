@@ -5,7 +5,7 @@
       <s:element name="StartGame">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="playerName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="player" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -28,27 +28,27 @@
       <s:element name="GetBoardResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetBoardResult" type="tns:ArrayOfArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetBoardResult" type="tns:ArrayOfArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfArrayOfInt">
+      <s:complexType name="ArrayOfArrayOfString">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfInt" nillable="true" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
         </s:sequence>
       </s:complexType>
-      <s:complexType name="ArrayOfInt">
+      <s:complexType name="ArrayOfString">
         <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
         </s:sequence>
       </s:complexType>
-      <s:element name="GetNextBlock">
+      <s:element name="GetNextShape">
         <s:complexType />
       </s:element>
-      <s:element name="GetNextBlockResponse">
+      <s:element name="GetNextShapeResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetNextBlockResult" type="tns:ArrayOfArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetNextShapeResult" type="tns:ArrayOfArrayOfString" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -115,6 +115,16 @@
       <s:element name="SubmitScoreResponse">
         <s:complexType />
       </s:element>
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="StartGameSoapIn">
@@ -135,11 +145,11 @@
   <wsdl:message name="GetBoardSoapOut">
     <wsdl:part name="parameters" element="tns:GetBoardResponse" />
   </wsdl:message>
-  <wsdl:message name="GetNextBlockSoapIn">
-    <wsdl:part name="parameters" element="tns:GetNextBlock" />
+  <wsdl:message name="GetNextShapeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNextShape" />
   </wsdl:message>
-  <wsdl:message name="GetNextBlockSoapOut">
-    <wsdl:part name="parameters" element="tns:GetNextBlockResponse" />
+  <wsdl:message name="GetNextShapeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNextShapeResponse" />
   </wsdl:message>
   <wsdl:message name="MoveBlockLeftSoapIn">
     <wsdl:part name="parameters" element="tns:MoveBlockLeft" />
@@ -189,6 +199,12 @@
   <wsdl:message name="SubmitScoreSoapOut">
     <wsdl:part name="parameters" element="tns:SubmitScoreResponse" />
   </wsdl:message>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
   <wsdl:portType name="TetrisWebServiceSoap">
     <wsdl:operation name="StartGame">
       <wsdl:input message="tns:StartGameSoapIn" />
@@ -202,9 +218,9 @@
       <wsdl:input message="tns:GetBoardSoapIn" />
       <wsdl:output message="tns:GetBoardSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetNextBlock">
-      <wsdl:input message="tns:GetNextBlockSoapIn" />
-      <wsdl:output message="tns:GetNextBlockSoapOut" />
+    <wsdl:operation name="GetNextShape">
+      <wsdl:input message="tns:GetNextShapeSoapIn" />
+      <wsdl:output message="tns:GetNextShapeSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="MoveBlockLeft">
       <wsdl:input message="tns:MoveBlockLeftSoapIn" />
@@ -238,6 +254,10 @@
       <wsdl:input message="tns:SubmitScoreSoapIn" />
       <wsdl:output message="tns:SubmitScoreSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="TetrisWebServiceSoap" type="tns:TetrisWebServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -268,8 +288,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetNextBlock">
-      <soap:operation soapAction="http://M32COM-Tetris.org/GetNextBlock" style="document" />
+    <wsdl:operation name="GetNextShape">
+      <soap:operation soapAction="http://M32COM-Tetris.org/GetNextShape" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -349,6 +369,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://M32COM-Tetris.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="TetrisWebServiceSoap12" type="tns:TetrisWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -379,8 +408,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetNextBlock">
-      <soap12:operation soapAction="http://M32COM-Tetris.org/GetNextBlock" style="document" />
+    <wsdl:operation name="GetNextShape">
+      <soap12:operation soapAction="http://M32COM-Tetris.org/GetNextShape" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -453,6 +482,15 @@
     </wsdl:operation>
     <wsdl:operation name="SubmitScore">
       <soap12:operation soapAction="http://M32COM-Tetris.org/SubmitScore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://M32COM-Tetris.org/HelloWorld" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

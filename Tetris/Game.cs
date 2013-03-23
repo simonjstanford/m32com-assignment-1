@@ -61,6 +61,14 @@ public sealed class Game
         return _board.RotateActiveShape();
     }
 
+    public string[][] ToArray()
+    {
+        //TODO:
+        string[][] testretval = new string[4][];
+        return testretval;
+    }
+
+    
 
 
     // Properties
@@ -68,11 +76,11 @@ public sealed class Game
     {
         get
         {
-            return this._player;
+            return _player;
         }
         set
         {
-            this._player = value;
+            _player = value;
         }
     }
 
@@ -80,7 +88,7 @@ public sealed class Game
     {
         get
         {
-            return this._score;
+            return _score;
         }
     }
 
@@ -88,8 +96,16 @@ public sealed class Game
     {
         get
         {
-            return this._state;
+            return _state;
         }
     }
-    
+
+    public Board Board
+    {
+        get
+        {
+            return _board;
+        }
+    }    
+
 }

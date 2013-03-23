@@ -9,9 +9,6 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:Button ID="btnSubmitHighScoreWs" Text="SubmitHighScore (Webservice)" runat="server" 
-            onclick="btnSubmitHighScoreWs_Click" />
-            <br />
                     <asp:Button ID="btnSubmitHighScoreDll" Text="SubmitHighScore (DLL)" runat="server" 
             onclick="btnSubmitHighScoreDll_Click" />
     </div>

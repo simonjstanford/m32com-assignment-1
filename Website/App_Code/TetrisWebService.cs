@@ -12,8 +12,8 @@ using TetrisHighScores;
 [WebService(Namespace = "http://M32COM-Tetris.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-[System.Web.Script.Services.ScriptService]
-public class TetrisWebService : System.Web.Services.WebService {
+//[System.Web.Script.Services.ScriptService]
+public class TetrisWebService : WebService {
 
     // Fields
     private const string GAMESESSIONINDEX = "Tetris";
@@ -47,8 +47,13 @@ public class TetrisWebService : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     public string[][] GetBoard()
     {
-        string[][] testretval = new string[4][];
-        return testretval;
+        return GetGame().ToArray();
+    }
+
+    [WebMethod(EnableSession = true)]
+    public string[][] GetNextShape()
+    {
+        return GetGame().Board.NextShape.ToArray();
     }
 
     //********************************************
@@ -75,7 +80,6 @@ public class TetrisWebService : System.Web.Services.WebService {
         GetGame().RotateBlock();
     }
 
-
     [WebMethod(EnableSession = true)]
     public void MoveBlockDown()
     {
@@ -99,7 +103,7 @@ public class TetrisWebService : System.Web.Services.WebService {
         return GetGame().Score;
     }
 
-    [WebMethod]
+    [WebMethod(EnableSession = true)]
     public DataTable GetHighScores()
     {
         //file location need to be moved to web.config
@@ -127,16 +131,16 @@ public class TetrisWebService : System.Web.Services.WebService {
     [WebMethod(EnableSession = true)]
     private void ValidateSession() 
     {
-        if (base.Session[GAMESESSIONINDEX] == null) 
+        if (Session[GAMESESSIONINDEX] == null) 
         {
-            this.StartGame(GUESTUSERNAME);
+            StartGame(GUESTUSERNAME);
         }
     }
 
     [WebMethod(EnableSession = true)]
     private Game GetGame()
     {
-        this.ValidateSession();
+        ValidateSession();
         return (Game)base.Session[GAMESESSIONINDEX];
     }
 
@@ -144,5 +148,28 @@ public class TetrisWebService : System.Web.Services.WebService {
     private void SaveGame(Game game)
     {
         base.Session[GAMESESSIONINDEX] = game;
+    }
+
+    //********************************************
+    //
+    //    Session test calls - this is testing that we can save in a session
+    //    Code taken from:
+    //    http://www.codeproject.com/Articles/35119/Using-Session-State-in-a-Web-Service
+    //
+    //********************************************
+    [WebMethod(EnableSession = true)]
+    public string HelloWorld()
+    {
+        // get the Count out of Session State
+        int? Count = (int?)Session["Count"];
+
+        if (Count == null)
+            Count = 0;
+
+        // increment and store the count
+        Count++;
+        Session["Count"] = Count;
+
+        return "Hello World - Call Number: " + Count.ToString();
     }
 }

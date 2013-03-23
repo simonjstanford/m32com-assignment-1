@@ -164,4 +164,12 @@ public abstract class Shape
         }
         return true;
     }
+
+
+    public string[][] ToArray()
+    {
+        //TODO:
+        string[][] testretval = new string[4][];
+        return testretval;
+    }
 }
