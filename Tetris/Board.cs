@@ -53,11 +53,21 @@ public class Board
         }
         else
         {
-
             return true;
         }
 
         //return activeShape.MoveDown(Board); //return true if shape moved, false otherwise
+    }
+
+    public void CheckFullRows()
+    {
+        //TODO:
+    }
+
+    public bool DropBlock()
+    {
+        //Do we call move shape down till it stops?
+        return false;
     }
 
     private Shape getRandomShape()
@@ -78,5 +88,4 @@ public class Board
             return _nextShape;
         }
     }
-
 }

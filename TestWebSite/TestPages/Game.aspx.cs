@@ -60,7 +60,4 @@ public partial class TestPages_Game : System.Web.UI.Page
        String iCount =  GetWS().HelloWorld();
        countTest.InnerText = iCount;
     }
-
-    
-
 }

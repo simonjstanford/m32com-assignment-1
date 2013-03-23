@@ -41,8 +41,6 @@
         <br />
         <asp:Button ID="btnCountTestWs" Text="Count Session Test (Webservice)" runat="server" OnClick="btnCountTestWs_Click" />
         <span id="countTest" runat="server"></span>
-        
-
     </div>
     </form>
 </body>

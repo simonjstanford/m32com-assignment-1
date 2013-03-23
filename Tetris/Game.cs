@@ -24,17 +24,9 @@ public sealed class Game
         _player = player;
     }
 
-    private void CheckFullRows()
-    {
-    }
-
     public bool DropBlock()
     {
-        return false;
-    }
-
-    private void GetNextBlock()
-    {
+        return _board.DropBlock();
     }
 
     public bool MoveBlockDown()
