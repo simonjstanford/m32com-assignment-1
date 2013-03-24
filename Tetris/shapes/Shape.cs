@@ -69,8 +69,17 @@ public abstract class Shape
     public bool MoveLeft(string[][] board)
     {
         bool canMove = CheckIfCanMove(board);
-        if (canMove)
+                if (canMove)
         {
+            foreach (Point coord in coords)
+            {
+                //check if a block is already filled by another shape.  
+                if (!String.IsNullOrEmpty(board[coord.X-1][coord.Y]))
+                {
+                    return false;
+                }
+            }
+        
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X -= 1;
@@ -89,6 +98,15 @@ public abstract class Shape
         bool canMove = CheckIfCanMove(board);
         if (canMove)
         {
+            foreach (Point coord in coords)
+            {
+                //check if a block is already filled by another shape.  
+                if (!String.IsNullOrEmpty(board[coord.X +1][coord.Y]))
+                {
+                    return false;
+                }
+            }
+            
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X += 1;

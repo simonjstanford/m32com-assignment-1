@@ -53,7 +53,6 @@ public class Board
         if (_activeShape.MoveDown(_board))
         {
             return true;
-
         }
         else
         {

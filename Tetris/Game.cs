@@ -36,7 +36,7 @@ public sealed class Game
 
     public bool MoveBlockLeft()
     {
-        return _board.MoveActiveShapeDown();
+        return _board.MoveActiveShapeLeft();
     }
 
     public bool MoveBlockRight()
