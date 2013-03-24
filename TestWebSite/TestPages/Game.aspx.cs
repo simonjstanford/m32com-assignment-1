@@ -115,17 +115,21 @@ public partial class TestPages_Game : System.Web.UI.Page
     protected void btnDownWs_Click(object sender, EventArgs e)
     {
         GetWS().MoveBlockDown();
+        btnGetBoardWs_Click(sender, e);
     }
     protected void btnRightWs_Click(object sender, EventArgs e)
     {
         GetWS().MoveBlockRight();
+        btnGetBoardWs_Click(sender, e);
     }
     protected void btnLeftWs_Click(object sender, EventArgs e)
     {
         GetWS().MoveBlockLeft();
+        btnGetBoardWs_Click(sender, e);
     }
     protected void btnDropWs_Click(object sender, EventArgs e)
     {
         GetWS().DropBlock();
+        btnGetBoardWs_Click(sender, e);
     }
 }
