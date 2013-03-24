@@ -41,36 +41,24 @@ public abstract class Shape
     /// <returns></returns>
     public bool MoveDown(string[][] board)
     {
-        bool canMove = true;
-
-        //first, check if any block has hit the bottom of the grid
-        foreach (Point coord in coords)
-            if (coord.Y == 0)
-                return false; //if so, return false
-
-        //turn all blocks in the active shape white
-        //        foreach (Point coord in coords)
-        //            board[coord.X][coord.Y] = "FFFFFF";
-
-        //check if a block is already filled by another shape.  
-        foreach (Point coord in coords)
-            if (board[coord.X][coord.Y - 1] != "FFFFFF")
-                canMove = false; //If so, set canMove to false
-
-        //if can move move the active shape.
-        for (int i = 0; i < coords.Length; i++)
-        {
-            coords[i].Y = coords[i].Y - 1;
-        }
-
+        bool canMove = CheckIfCanMove(board);
         if (canMove)
         {
-            return true;
+            foreach (Point coord in coords)
+            {
+                //check if a block is already filled by another shape.  
+                if (!String.IsNullOrEmpty(board[coord.X][coord.Y-1]))
+                {
+                    return false;
+                }
+            }
+            
+            for (int i = 0; i < coords.Length; i++)
+            {
+                coords[i].Y -= 1;
+            }
         }
-        else
-        {
-            return false;
-        }
+        return canMove;
     }
 
     /// <summary>
@@ -80,39 +68,15 @@ public abstract class Shape
     /// <returns></returns>
     public bool MoveLeft(string[][] board)
     {
-        bool canMove = true;
-
-        //first, check if any block has hit the far left of the grid
-        foreach (Point coord in coords)
-            if (coord.X == 0)
-                return false; //if so, return false
-
-        //turn all blocks in the active shape white
-        foreach (Point coord in coords)
-            board[coord.X][coord.Y] = "FFFFFF";
-
-        //check if a block is already filled by another shape.  
-        foreach (Point coord in coords)
-            if (board[coord.X - 1][coord.Y] != "FFFFFF")
-                canMove = false; //If so, set canMove to false
-
-        //if can move, shift all coords left and re-colour
+        bool canMove = CheckIfCanMove(board);
         if (canMove)
+        {
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X -= 1;
-                board[coords[i].X][coords[i].Y] = colourHexCode;
             }
-        else //else just re-colour without shifting left
-            for (int i = 0; i < coords.Length; i++)
-            {
-                board[coords[i].X][coords[i].Y] = colourHexCode;
-            }
-
-        if (canMove)
-            return true;
-        else
-            return false;
+        }
+        return canMove;
     }
 
     /// <summary>
@@ -122,49 +86,27 @@ public abstract class Shape
     /// <returns></returns>
     public bool MoveRight(string[][] board)
     {
-        bool canMove = true;
-
-        //first, check if any block has hit the far right of the grid
-        foreach (Point coord in coords)
-            if (coord.X == board.GetLength(0))
-                return false; //if so, return false
-
-        //turn all blocks in the active shape white
-        foreach (Point coord in coords)
-            board[coord.X][coord.Y] = "FFFFFF";
-
-        //check if a block is already filled by another shape.  
-        foreach (Point coord in coords)
-            if (board[coord.X + 1][coord.Y] != "FFFFFF")
-                canMove = false; //If so][ set canMove to false
-
-        //if can move, shift all coords left and re-colour
+        bool canMove = CheckIfCanMove(board);
         if (canMove)
+        {
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X += 1;
-                board[coords[i].X][coords[i].Y] = colourHexCode;
             }
-        else //else just re-colour without shifting left
-            for (int i = 0; i < coords.Length; i++)
-            {
-                board[coords[i].X][coords[i].Y] = colourHexCode;
-            }
-
-        if (canMove)
-            return true;
-        else
-            return false;
+        }
+        return canMove;
     }
 
     protected bool CheckIfCanMove(string[][] board)
     {
-        //turn all blocks in the active shape white
-
         foreach (Point coord in coords)
         {
-            if (board[coord.X][coord.Y] != "FFFFFF")
-                return false; //If so, set canMove to false
+            //is block off board or at the bottom
+            //Length is one more than grid
+            if (((coord.Y >= board[board.Length - 1].Length) || (coord.X >= board.Length)) || ((coord.Y <= 0) || (coord.X <= 0)))
+            {
+                return false;
+            }
         }
         return true;
     }
@@ -198,7 +140,7 @@ public abstract class Shape
             for (int k = 0; k < board[j].Length; k++)
             {
                 newboard[j][k] = board[j][k];
-            }   
+            }
         }
 
         foreach (Point coord in coords)

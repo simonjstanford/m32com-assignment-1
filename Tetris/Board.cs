@@ -28,6 +28,10 @@ public class Board
         for (int i = 0; i < _boardWidth ; i++)
         {
             _board[i] = new string[_boardHeight];
+            for (int j = 0; j < _boardHeight; j++)
+            {
+                _board[i][j] = string.Empty;
+            }
         }
 
         _activeShape = getRandomShape(_boardWidth / 2, _boardHeight -1);
@@ -48,14 +52,16 @@ public class Board
     {
         if (_activeShape.MoveDown(_board))
         {
-            _nextShape.Reposition(_boardWidth / 2 -1, _boardHeight -1);
-            _activeShape = _nextShape;
-            _nextShape = getRandomShape(2, 2);
-            return false;
+            return true;
+
         }
         else
         {
-            return true;
+            _board = ToArray();
+            _nextShape.Reposition(_boardWidth / 2 - 1, _boardHeight - 1);
+            _activeShape = _nextShape;
+            _nextShape = getRandomShape(2, 2);
+            return false;
         }
     }
 
