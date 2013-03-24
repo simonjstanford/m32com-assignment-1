@@ -65,31 +65,41 @@ public class TetrisWebService : WebService {
     [WebMethod(EnableSession = true)]
     public void MoveBlockLeft()
     {
-        GetGame().MoveBlockLeft();
+        Game game = GetGame();
+        game.MoveBlockLeft();
+        SaveGame(game);
     }
 
     [WebMethod(EnableSession = true)]
     public void MoveBlockRight()
     {
-        GetGame().MoveBlockRight();
+        Game game = GetGame();
+        game.MoveBlockRight();
+        SaveGame(game);
     }
 
     [WebMethod(EnableSession = true)]
     public void RotateBlock()
     {
-        GetGame().RotateBlock();
+        Game game = GetGame();
+        game.RotateBlock();
+        SaveGame(game);
     }
 
     [WebMethod(EnableSession = true)]
     public void MoveBlockDown()
     {
-        GetGame().MoveBlockDown();
+        Game game = GetGame();
+        game.MoveBlockDown();
+        SaveGame(game);
     }
 
     [WebMethod(EnableSession = true)]
     public void DropBlock()
     {
-        GetGame().DropBlock();
+        Game game = GetGame();
+        game.DropBlock();
+        SaveGame(game);
     }
 
     //********************************************
