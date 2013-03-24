@@ -14,6 +14,7 @@ public class O_Shape : Shape
     {
         colourHexCode = "FFFF00";
         coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord - 1), new Point ( topMiddleXCord, topMiddleYCord -1) };
+        base.Type = ShapeTypes.O;
     }
 
     override public void Reposition(int topMiddleXCord, int topMiddleYCord)

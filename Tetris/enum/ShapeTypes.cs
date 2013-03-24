@@ -11,7 +11,7 @@ public enum ShapeTypes
     O, //Square
     S,
     T,
-    Z
+    Z,
 }
 
 

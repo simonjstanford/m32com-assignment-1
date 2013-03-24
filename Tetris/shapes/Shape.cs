@@ -13,6 +13,7 @@ public abstract class Shape
     protected string colourHexCode;
     protected Rotation rotation;
     protected Point[] coords;
+    public ShapeTypes Type { get; protected set; }
 
     public Shape()
     {

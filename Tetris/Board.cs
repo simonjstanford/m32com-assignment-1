@@ -14,13 +14,13 @@ public class Board
     private int _boardWidth;
     private int _boardHeight;
 
-	public Board()
-	{
+    public Board()
+    {
         _boardHeight = 30;
         _boardWidth = 12;
-        
+
         startGame();
-	}
+    }
 
     private void startGame()
     {
@@ -30,8 +30,8 @@ public class Board
             _board[i] = new string[_boardHeight];
         }
 
-        _activeShape = getRandomShape(_boardWidth/2,_boardHeight);
-        _nextShape = getRandomShape(2,2);
+        _activeShape = getRandomShape(_boardWidth / 2, _boardHeight);
+        _nextShape = getRandomShape(2, 2);
     }
 
     public bool MoveActiveShapeLeft()
@@ -48,9 +48,9 @@ public class Board
     {
         if (_activeShape.MoveDown(_board))
         {
-            _nextShape.Reposition(_boardWidth/2, _boardHeight);
+            _nextShape.Reposition(_boardWidth / 2, _boardHeight - 1);
             _activeShape = _nextShape;
-            _nextShape = getRandomShape(2,2);   
+            _nextShape = getRandomShape(2, 2);
             return false;
         }
         else
@@ -76,7 +76,28 @@ public class Board
 
     private Shape getRandomShape(int topMiddleXCord, int topMiddleYCord)
     {
-        return new I_Shape(topMiddleXCord,topMiddleYCord);
+        Random random = new Random();
+
+        switch (random.Next(0, 7))
+        {
+            case 0:
+                return new I_Shape(topMiddleXCord, topMiddleYCord); 
+            case 1:
+                return new J_Shape(topMiddleXCord, topMiddleYCord); 
+            case 2:
+                return new L_Shape(topMiddleXCord, topMiddleYCord); 
+            case 3:
+                return new O_Shape(topMiddleXCord, topMiddleYCord); 
+            case 4:
+                return new S_Shape(topMiddleXCord, topMiddleYCord); 
+            case 5:
+                return new T_Shape(topMiddleXCord, topMiddleYCord); 
+            case 6:
+                return new Z_Shape(topMiddleXCord, topMiddleYCord); 
+        }
+
+        return null;
+
     }
 
     public bool RotateActiveShape()
@@ -95,6 +116,6 @@ public class Board
 
     public string[][] ToArray()
     {
-       return _activeShape.AddShapeToBoard(_board);
+        return _activeShape.AddShapeToBoard(_board);
     }
 }

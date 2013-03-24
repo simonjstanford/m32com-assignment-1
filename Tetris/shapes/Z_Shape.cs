@@ -14,6 +14,7 @@ public class Z_Shape : Shape
     {
         colourHexCode = "FF0000";
         coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord -1 ), new Point(topMiddleXCord + 1, topMiddleYCord - 1) };
+        base.Type = ShapeTypes.Z;
     }
 
     override public void Reposition(int topMiddleXCord, int topMiddleYCord) 
