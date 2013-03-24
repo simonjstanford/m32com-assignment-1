@@ -66,14 +66,14 @@ public class Z_Shape : Shape
             try
             {
                 foreach (Point coord in coords)
-                    board[coord.X][coord.Y] = "00FFFF";
+                    board[coord.X][coord.Y] = base.colourHexCode;
                 return true;
             }
             catch (Exception)
             {
                 coords = previousPosition;
                 foreach (Point coord in coords)
-                    board[coord.X][coord.Y] = "00FFFF";
+                    board[coord.X][coord.Y] = base.colourHexCode;
                 return false;
             }
 
@@ -82,7 +82,7 @@ public class Z_Shape : Shape
         {
             coords = previousPosition;
             foreach (Point coord in coords)
-                board[coord.X][coord.Y] = "00FFFF";
+                board[coord.X][coord.Y] = base.colourHexCode;
             return false;
         }
     }
