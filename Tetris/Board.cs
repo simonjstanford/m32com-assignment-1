@@ -25,12 +25,12 @@ public class Board
     private void startGame()
     {
         _board = new string[_boardWidth][];
-        for (int i = 0; i < _boardWidth; i++)
+        for (int i = 0; i < _boardWidth ; i++)
         {
             _board[i] = new string[_boardHeight];
         }
 
-        _activeShape = getRandomShape(_boardWidth / 2, _boardHeight);
+        _activeShape = getRandomShape(_boardWidth / 2, _boardHeight -1);
         _nextShape = getRandomShape(2, 2);
     }
 
@@ -48,7 +48,7 @@ public class Board
     {
         if (_activeShape.MoveDown(_board))
         {
-            _nextShape.Reposition(_boardWidth / 2, _boardHeight - 1);
+            _nextShape.Reposition(_boardWidth / 2 -1, _boardHeight -1);
             _activeShape = _nextShape;
             _nextShape = getRandomShape(2, 2);
             return false;

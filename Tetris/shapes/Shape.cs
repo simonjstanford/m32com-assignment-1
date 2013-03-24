@@ -9,7 +9,6 @@ using System.Drawing;
 /// </summary>
 public abstract class Shape
 {
-    public bool Active { get; private set; }
     protected string colourHexCode;
     protected Rotation rotation;
     protected Point[] coords;
@@ -17,7 +16,6 @@ public abstract class Shape
 
     public Shape()
     {
-        Active = true;
         rotation = Rotation.North;
     }
 
@@ -51,26 +49,19 @@ public abstract class Shape
                 return false; //if so, return false
 
         //turn all blocks in the active shape white
-        foreach (Point coord in coords)
-            board[coord.X][coord.Y] = "FFFFFF";
+        //        foreach (Point coord in coords)
+        //            board[coord.X][coord.Y] = "FFFFFF";
 
         //check if a block is already filled by another shape.  
         foreach (Point coord in coords)
-            if (board[coord.X][ coord.Y - 1] != "FFFFFF")
+            if (board[coord.X][coord.Y - 1] != "FFFFFF")
                 canMove = false; //If so, set canMove to false
 
-        //if can move, shift all coords down and re-colour
-        if (canMove)
-            for (int i = 0; i < coords.Length; i++)
-            {
-                coords[i].Y -= 1;
-                board[coords[i].X][ coords[i].Y] = colourHexCode;
-            }
-        else //else just re-colour without shifting down
-            for (int i = 0; i < coords.Length; i++)
-            {
-                board[coords[i].X][ coords[i].Y] = colourHexCode;
-            }
+        //if can move move the active shape.
+        for (int i = 0; i < coords.Length; i++)
+        {
+            coords[i].Y = coords[i].Y - 1;
+        }
 
         if (canMove)
         {
@@ -78,7 +69,6 @@ public abstract class Shape
         }
         else
         {
-            Active = false;
             return false;
         }
     }
@@ -103,7 +93,7 @@ public abstract class Shape
 
         //check if a block is already filled by another shape.  
         foreach (Point coord in coords)
-            if (board[coord.X - 1][ coord.Y] != "FFFFFF")
+            if (board[coord.X - 1][coord.Y] != "FFFFFF")
                 canMove = false; //If so, set canMove to false
 
         //if can move, shift all coords left and re-colour
@@ -111,12 +101,12 @@ public abstract class Shape
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X -= 1;
-                board[coords[i].X][ coords[i].Y] = colourHexCode;
+                board[coords[i].X][coords[i].Y] = colourHexCode;
             }
         else //else just re-colour without shifting left
             for (int i = 0; i < coords.Length; i++)
             {
-                board[coords[i].X][ coords[i].Y] = colourHexCode;
+                board[coords[i].X][coords[i].Y] = colourHexCode;
             }
 
         if (canMove)
@@ -145,7 +135,7 @@ public abstract class Shape
 
         //check if a block is already filled by another shape.  
         foreach (Point coord in coords)
-            if (board[coord.X + 1][ coord.Y] != "FFFFFF")
+            if (board[coord.X + 1][coord.Y] != "FFFFFF")
                 canMove = false; //If so][ set canMove to false
 
         //if can move, shift all coords left and re-colour
@@ -153,12 +143,12 @@ public abstract class Shape
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X += 1;
-                board[coords[i].X][ coords[i].Y] = colourHexCode;
+                board[coords[i].X][coords[i].Y] = colourHexCode;
             }
         else //else just re-colour without shifting left
             for (int i = 0; i < coords.Length; i++)
             {
-                board[coords[i].X][ coords[i].Y] = colourHexCode;
+                board[coords[i].X][coords[i].Y] = colourHexCode;
             }
 
         if (canMove)
@@ -183,7 +173,7 @@ public abstract class Shape
     {
         string[][] shapeArray = new string[4][];
 
-        for (int i = 0; i < shapeArray.Length ; i++)
+        for (int i = 0; i < shapeArray.Length; i++)
         {
             shapeArray[i] = new string[4];
         }
@@ -199,9 +189,8 @@ public abstract class Shape
     {
         foreach (Point coord in coords)
         {
-            board[coord.X-1][coord.Y-1] = colourHexCode;
+            board[coord.X][coord.Y] = colourHexCode;
         }
         return board;
     }
-
 }

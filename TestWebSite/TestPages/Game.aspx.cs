@@ -51,13 +51,16 @@ public partial class TestPages_Game : System.Web.UI.Page
             { 
                 //each coloumn
                 TableCell tc = new TableCell();
+                tc.BorderStyle = BorderStyle.Solid;
+                tc.BorderColor = System.Drawing.Color.Black;
+
                 if (String.IsNullOrEmpty(Board[i][j]))
                 {
-                    tc.Text = "0";
+                    tc.Text = Board[i][j];
                 }
                 else 
                 {
-                    tc.Text = "1";
+                    tc.Text = Board[i][j];
                 }
                 
                 tr.Cells.Add(tc);
@@ -97,11 +100,11 @@ public partial class TestPages_Game : System.Web.UI.Page
                 TableCell tc = new TableCell();
                 if (String.IsNullOrEmpty(fred[i][j]))
                 {
-                    tc.Text = "0";
+                    tc.Text = fred[i][j];
                 }
                 else 
                 {
-                    tc.Text = "1";
+                    tc.Text = fred[i][j];
                 }
                 tr.Cells.Add(tc);
             }
