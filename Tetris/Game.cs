@@ -55,13 +55,8 @@ public sealed class Game
 
     public string[][] ToArray()
     {
-        //TODO:
-        string[][] testretval = new string[4][];
-        return testretval;
+        return _board.ToArray();
     }
-
-    
-
 
     // Properties
     public String Player

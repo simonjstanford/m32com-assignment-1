@@ -42,6 +42,28 @@ public partial class TestPages_Game : System.Web.UI.Page
     protected void btnGetBoardWs_Click(object sender, EventArgs e)
     {
         String[][] Board = GetWS().GetBoard();
+        
+        for (int i = 0; i < Board.Length; i++)
+        {
+            //each row
+            TableRow tr = new TableRow();
+            for (int j = 0; j < Board[i].Length; j++)
+            { 
+                //each coloumn
+                TableCell tc = new TableCell();
+                if (String.IsNullOrEmpty(Board[i][j]))
+                {
+                    tc.Text = "0";
+                }
+                else 
+                {
+                    tc.Text = "1";
+                }
+                
+                tr.Cells.Add(tc);
+            }
+            blocks.Rows.Add(tr);
+        }
     }
 
     protected void btnGetScoreWs_Click(object sender, EventArgs e)
@@ -59,5 +81,32 @@ public partial class TestPages_Game : System.Web.UI.Page
     {
        String iCount =  GetWS().HelloWorld();
        countTest.InnerText = iCount;
+    }
+
+    protected void btnGetNextShapeWs_Click(object sender, EventArgs e)
+    {
+        string[][] fred = GetWS().GetNextShape();
+
+        for (int i = 0; i < fred.Length; i++)
+        {
+            //each row
+            TableRow tr = new TableRow();
+            for (int j = 0; j < fred[i].Length; j++)
+            { 
+                //each coloumn
+                TableCell tc = new TableCell();
+                if (String.IsNullOrEmpty(fred[i][j]))
+                {
+                    tc.Text = "0";
+                }
+                else 
+                {
+                    tc.Text = "1";
+                }
+                tr.Cells.Add(tc);
+            }
+            nextShape.Rows.Add(tr);
+        }
+
     }
 }

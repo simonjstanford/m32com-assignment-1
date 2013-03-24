@@ -20,14 +20,27 @@ public abstract class Shape
         rotation = Rotation.North;
     }
 
-    public abstract bool Rotate(string[,] board);
+    /// <summary>
+    /// Used when moving the shape from next shape board to game board
+    /// </summary>
+    /// <param name="topMiddleXCord"></param>
+    /// <param name="topMiddleYCord"></param>
+    /// <returns></returns>
+    public abstract void Reposition(int topMiddleXCord, int topMiddleYCord);
+
+    /// <summary>
+    /// Rotates the shape
+    /// </summary>
+    /// /// <param name="board"></param>
+    /// <returns></returns>
+    public abstract bool Rotate(string[][] board);
 
     /// <summary>
     /// Checks if shape can move down. If true, the shape coords and board array are both updated
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public bool MoveDown(string[,] board)
+    public bool MoveDown(string[][] board)
     {
         bool canMove = true;
 
@@ -38,11 +51,11 @@ public abstract class Shape
 
         //turn all blocks in the active shape white
         foreach (Point coord in coords)
-            board[coord.X, coord.Y] = "FFFFFF";
+            board[coord.X][coord.Y] = "FFFFFF";
 
         //check if a block is already filled by another shape.  
         foreach (Point coord in coords)
-            if (board[coord.X, coord.Y - 1] != "FFFFFF")
+            if (board[coord.X][ coord.Y - 1] != "FFFFFF")
                 canMove = false; //If so, set canMove to false
 
         //if can move, shift all coords down and re-colour
@@ -50,12 +63,12 @@ public abstract class Shape
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].Y -= 1;
-                board[coords[i].X, coords[i].Y] = colourHexCode;
+                board[coords[i].X][ coords[i].Y] = colourHexCode;
             }
         else //else just re-colour without shifting down
             for (int i = 0; i < coords.Length; i++)
             {
-                board[coords[i].X, coords[i].Y] = colourHexCode;
+                board[coords[i].X][ coords[i].Y] = colourHexCode;
             }
 
         if (canMove)
@@ -74,7 +87,7 @@ public abstract class Shape
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public bool MoveLeft(string[,] board)
+    public bool MoveLeft(string[][] board)
     {
         bool canMove = true;
 
@@ -85,11 +98,11 @@ public abstract class Shape
 
         //turn all blocks in the active shape white
         foreach (Point coord in coords)
-            board[coord.X, coord.Y] = "FFFFFF";
+            board[coord.X][coord.Y] = "FFFFFF";
 
         //check if a block is already filled by another shape.  
         foreach (Point coord in coords)
-            if (board[coord.X - 1, coord.Y] != "FFFFFF")
+            if (board[coord.X - 1][ coord.Y] != "FFFFFF")
                 canMove = false; //If so, set canMove to false
 
         //if can move, shift all coords left and re-colour
@@ -97,12 +110,12 @@ public abstract class Shape
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X -= 1;
-                board[coords[i].X, coords[i].Y] = colourHexCode;
+                board[coords[i].X][ coords[i].Y] = colourHexCode;
             }
         else //else just re-colour without shifting left
             for (int i = 0; i < coords.Length; i++)
             {
-                board[coords[i].X, coords[i].Y] = colourHexCode;
+                board[coords[i].X][ coords[i].Y] = colourHexCode;
             }
 
         if (canMove)
@@ -116,7 +129,7 @@ public abstract class Shape
     /// </summary>
     /// <param name="board"></param>
     /// <returns></returns>
-    public bool MoveRight(string[,] board)
+    public bool MoveRight(string[][] board)
     {
         bool canMove = true;
 
@@ -127,24 +140,24 @@ public abstract class Shape
 
         //turn all blocks in the active shape white
         foreach (Point coord in coords)
-            board[coord.X, coord.Y] = "FFFFFF";
+            board[coord.X][coord.Y] = "FFFFFF";
 
         //check if a block is already filled by another shape.  
         foreach (Point coord in coords)
-            if (board[coord.X + 1, coord.Y] != "FFFFFF")
-                canMove = false; //If so, set canMove to false
+            if (board[coord.X + 1][ coord.Y] != "FFFFFF")
+                canMove = false; //If so][ set canMove to false
 
         //if can move, shift all coords left and re-colour
         if (canMove)
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X += 1;
-                board[coords[i].X, coords[i].Y] = colourHexCode;
+                board[coords[i].X][ coords[i].Y] = colourHexCode;
             }
         else //else just re-colour without shifting left
             for (int i = 0; i < coords.Length; i++)
             {
-                board[coords[i].X, coords[i].Y] = colourHexCode;
+                board[coords[i].X][ coords[i].Y] = colourHexCode;
             }
 
         if (canMove)
@@ -153,23 +166,41 @@ public abstract class Shape
             return false;
     }
 
-    protected bool CheckIfCanMove(string[,] board)
+    protected bool CheckIfCanMove(string[][] board)
     {
         //turn all blocks in the active shape white
 
         foreach (Point coord in coords)
         {
-            if (board[coord.X, coord.Y] != "FFFFFF")
+            if (board[coord.X][coord.Y] != "FFFFFF")
                 return false; //If so, set canMove to false
         }
         return true;
     }
 
-
     public string[][] ToArray()
     {
-        //TODO:
-        string[][] testretval = new string[4][];
-        return testretval;
+        string[][] shapeArray = new string[4][];
+
+        for (int i = 0; i < shapeArray.Length ; i++)
+        {
+            shapeArray[i] = new string[4];
+        }
+
+        foreach (Point coord in coords)
+        {
+            shapeArray[coord.X][coord.Y] = colourHexCode;
+        }
+        return shapeArray;
     }
+
+    public string[][] AddShapeToBoard(string[][] board)
+    {
+        foreach (Point coord in coords)
+        {
+            board[coord.X-1][coord.Y-1] = colourHexCode;
+        }
+        return board;
+    }
+
 }

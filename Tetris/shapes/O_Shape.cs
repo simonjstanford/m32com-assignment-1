@@ -14,11 +14,14 @@ public class O_Shape : Shape
     {
         colourHexCode = "FFFF00";
         coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord - 1), new Point ( topMiddleXCord, topMiddleYCord -1) };
-
-
     }
 
-    override public bool Rotate(string[,] board)
+    override public void Reposition(int topMiddleXCord, int topMiddleYCord)
+    {
+        coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord - 1), new Point(topMiddleXCord, topMiddleYCord - 1) };
+    }
+
+    override public bool Rotate(string[][] board)
     {
         return true; //O can always rotate
     }

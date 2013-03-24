@@ -14,16 +14,19 @@ public class L_Shape : Shape
     {
         colourHexCode = "FFA500";
         coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord - 1) };
-
-
     }
 
-    override public bool Rotate(string[,] board)
+    override public void Reposition(int topMiddleXCord, int topMiddleYCord)
+    {
+        coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord - 1) };
+    }
+
+    override public bool Rotate(string[][] board)
     {
         Point[] previousPosition = coords;
 
         foreach (Point coord in coords)
-            board[coord.X, coord.Y] = "FFFFFF";
+            board[coord.X][coord.Y] = "FFFFFF";
 
         switch (rotation)
         {
@@ -63,14 +66,14 @@ public class L_Shape : Shape
             try
             {
                 foreach (Point coord in coords)
-                    board[coord.X, coord.Y] = "00FFFF";
+                    board[coord.X][coord.Y] = "00FFFF";
                 return true;
             }
             catch (Exception)
             {
                 coords = previousPosition;
                 foreach (Point coord in coords)
-                    board[coord.X, coord.Y] = "00FFFF";
+                    board[coord.X][coord.Y] = "00FFFF";
                 return false;
             }
 
@@ -79,7 +82,7 @@ public class L_Shape : Shape
         {
             coords = previousPosition;
             foreach (Point coord in coords)
-                board[coord.X, coord.Y] = "00FFFF";
+                board[coord.X][coord.Y] = "00FFFF";
             return false;
         }
     }

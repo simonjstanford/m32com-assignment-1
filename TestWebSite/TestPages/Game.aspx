@@ -7,41 +7,38 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        Name:
+        <div>
+            Name:
         <asp:TextBox ID="txtName" runat="server"></asp:TextBox><br />
-        <asp:Button ID="btnStartGameWs" Text="Start Game (Webservice)" runat="server" OnClick="btnStartGameWs_Click" />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <asp:Button ID="btnGetBoardWs" Text="Get Board (Webservice)" runat="server" OnClick="btnGetBoardWs_Click" />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <asp:Button ID="btnGetScoreWs" Text="Get Score (Webservice)" runat="server" OnClick="btnGetScoreWs_Click" />
-        <span id="score" runat="server"></span>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <asp:Button ID="btnSubmitHighScoreWs" Text="Submit High Score (Webservice)" runat="server" OnClick="btnSubmitHighScoreWs_Click" />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <asp:Button ID="btnCountTestWs" Text="Count Session Test (Webservice)" runat="server" OnClick="btnCountTestWs_Click" />
-        <span id="countTest" runat="server"></span>
-    </div>
+            <asp:Button ID="btnStartGameWs" Text="Start Game (Webservice)" runat="server" OnClick="btnStartGameWs_Click" />
+            <br />
+            <br />
+            <br />
+            <asp:Button ID="btnGetNextShapeWs" Text="Get Next Shape (Webservice)" runat="server" OnClick="btnGetNextShapeWs_Click" />
+            <asp:Table ID="nextShape" runat="server" BorderColor="Black" BorderStyle="Solid"></asp:Table>
+            <br />
+            <br />
+            <br />
+            <asp:Button ID="btnGetScoreWs" Text="Get Score (Webservice)" runat="server" OnClick="btnGetScoreWs_Click" />
+            <span id="score" runat="server"></span>
+            <br />
+            <br />
+            <br />
+            <asp:Button ID="btnSubmitHighScoreWs" Text="Submit High Score (Webservice)" runat="server" OnClick="btnSubmitHighScoreWs_Click" />
+            <br />
+            <br />
+            <br />
+            <asp:Button ID="btnCountTestWs" Text="Count Session Test (Webservice)" runat="server" OnClick="btnCountTestWs_Click" />
+            <span id="countTest" runat="server"></span>
+            <br />
+            <br />
+            <br />
+            <asp:Button ID="btnGetBoardWs" Text="Get Board (Webservice)" runat="server" OnClick="btnGetBoardWs_Click" />
+            <asp:Table ID="blocks" runat="server" BorderColor="Black" BorderStyle="Solid"></asp:Table>
+            <br />
+            <br />
+            <br />
+        </div>
     </form>
 </body>
 </html>

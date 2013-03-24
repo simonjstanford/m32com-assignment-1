@@ -16,7 +16,12 @@ public class J_Shape : Shape
         coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord - 1) };
     }
 
-    override public bool Rotate(string[,] board)
+    override public void Reposition(int topMiddleXCord, int topMiddleYCord)
+    {
+        coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord - 1) };
+    }
+
+    override public bool Rotate(string[][] board)
     {
         return true;
     }

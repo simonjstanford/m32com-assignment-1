@@ -8,7 +8,7 @@ using System.Web;
 /// </summary>
 public class Board
 {
-    public string[,] _board;
+    public string[][] _board;
     private Shape _activeShape;
     private Shape _nextShape;
     private int _boardWidth;
@@ -24,39 +24,39 @@ public class Board
 
     private void startGame()
     {
-        _board = new string[_boardWidth, _boardHeight];
-        _activeShape = getRandomShape();
-        _nextShape = getRandomShape();
+        _board = new string[_boardWidth][];
+        for (int i = 0; i < _boardWidth; i++)
+        {
+            _board[i] = new string[_boardHeight];
+        }
+
+        _activeShape = getRandomShape(_boardWidth/2,_boardHeight);
+        _nextShape = getRandomShape(2,2);
     }
 
     public bool MoveActiveShapeLeft()
     {
-
         return _activeShape.MoveLeft(_board); //return true if shape moved, false otherwise
     }
 
     public bool MoveActiveShapeRight()
     {
-
         return _activeShape.MoveRight(_board); //return true if shape moved, false otherwise
     }
 
     public bool MoveActiveShapeDown()
     {
-
         if (_activeShape.MoveDown(_board))
         {
+            _nextShape.Reposition(_boardWidth/2, _boardHeight);
             _activeShape = _nextShape;
-            _nextShape = getRandomShape();
-            
+            _nextShape = getRandomShape(2,2);   
             return false;
         }
         else
         {
             return true;
         }
-
-        //return activeShape.MoveDown(Board); //return true if shape moved, false otherwise
     }
 
     public void CheckFullRows()
@@ -66,13 +66,17 @@ public class Board
 
     public bool DropBlock()
     {
-        //Do we call move shape down till it stops?
-        return false;
+        bool flag = false;
+        while (MoveActiveShapeDown())
+        {
+            flag = true;
+        }
+        return flag;
     }
 
-    private Shape getRandomShape()
+    private Shape getRandomShape(int topMiddleXCord, int topMiddleYCord)
     {
-        return new I_Shape(4,4);
+        return new I_Shape(topMiddleXCord,topMiddleYCord);
     }
 
     public bool RotateActiveShape()
@@ -87,5 +91,10 @@ public class Board
         {
             return _nextShape;
         }
+    }
+
+    public string[][] ToArray()
+    {
+       return _activeShape.AddShapeToBoard(_board);
     }
 }
