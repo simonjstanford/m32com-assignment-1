@@ -82,7 +82,7 @@ public class I_Shape : Shape
         {
             coords = previousPosition;
             foreach (Point coord in coords)
-                board[coord.X][coord.Y] = "00FFFF";
+                board[coord.X][coord.Y] = base.colourHexCode;
             return false;
         }
     }
