@@ -132,4 +132,9 @@ public partial class TestPages_Game : System.Web.UI.Page
         GetWS().DropBlock();
         btnGetBoardWs_Click(sender, e);
     }
+    protected void btnRotateWs_Click(object sender, EventArgs e)
+    {
+        GetWS().RotateBlock();
+        btnGetBoardWs_Click(sender, e);
+    }
 }

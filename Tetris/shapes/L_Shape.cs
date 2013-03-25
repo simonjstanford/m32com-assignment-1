@@ -24,67 +24,50 @@ public class L_Shape : Shape
 
     override public bool Rotate(string[][] board)
     {
-        Point[] previousPosition = coords;
-
-        foreach (Point coord in coords)
-            board[coord.X][coord.Y] = "FFFFFF";
-
-        switch (rotation)
+        bool canMove = CheckIfCanMove(board);
+        if (canMove)
         {
 
-            case Rotation.North: 
-                rotation = Rotation.East;
-                coords[2].X -= 2; coords[1].Y -= 2;
-                coords[1].X -= 1; coords[1].Y -= 1;
-                coords[3].X -= 1; coords[3].Y += 1;
-                break;
-
-            case Rotation.East:
-                rotation = Rotation.South;
-                coords[2].X -= 2; coords[1].Y += 2;
-                coords[1].X -= 1; coords[1].Y -= 1;
-                coords[3].X += 1; coords[3].Y += 1;
-                break;
-
-            case Rotation.South:
-                rotation = Rotation.West;
-                coords[2].X += 2; coords[1].Y += 2;
-                coords[1].X += 1; coords[1].Y += 1;
-                coords[3].X += 1; coords[3].Y -= 1;
-                break;
-
-            case Rotation.West:
-                rotation = Rotation.North;
-                coords[2].X += 2; coords[1].Y -= 2;
-                coords[1].X += 1; coords[1].Y -= 1;
-                coords[3].X -= 1; coords[3].Y -= 1;
-                break;
-        }
-
-
-        if (base.CheckIfCanMove(board))
-        {
-            try
+            switch (rotation)
             {
-                foreach (Point coord in coords)
-                    board[coord.X][coord.Y] = base.colourHexCode;
-                return true;
+
+                case Rotation.North:
+                    rotation = Rotation.East;
+                    coords[1].X -= 1; coords[1].Y -= 1;
+                    coords[2].X -= 2; coords[2].Y -= 2;
+                    coords[3].X -= 1; coords[3].Y += 1;
+                    break;
+
+                case Rotation.East:
+                    rotation = Rotation.South;
+                    coords[1].X -= 1; coords[1].Y += 1;
+                    coords[2].X -= 2; coords[2].Y += 2;
+                    coords[3].X += 1; coords[3].Y += 1;
+                    break;
+
+                case Rotation.South:
+                    rotation = Rotation.West;
+                    coords[1].X += 1; coords[1].Y += 1;
+                    coords[2].X += 2; coords[2].Y += 2;
+                    coords[3].X += 1; coords[3].Y -= 1;
+                    break;
+
+                case Rotation.West:
+                    rotation = Rotation.North;
+                    coords[1].X += 1; coords[1].Y -= 1;
+                    coords[2].X += 2; coords[2].Y -= 2;
+                    coords[3].X -= 1; coords[3].Y -= 1;
+                    break;
             }
-            catch (Exception)
+        }
+        foreach (Point coord in coords)
+        {
+            //check if a block is already filled by another shape.  
+            if (!String.IsNullOrEmpty(board[coord.X][coord.Y]))
             {
-                coords = previousPosition;
-                foreach (Point coord in coords)
-                    board[coord.X][coord.Y] = base.colourHexCode;
                 return false;
             }
-
         }
-        else
-        {
-            coords = previousPosition;
-            foreach (Point coord in coords)
-                board[coord.X][coord.Y] = base.colourHexCode;
-            return false;
-        }
+        return canMove;
     }
 }

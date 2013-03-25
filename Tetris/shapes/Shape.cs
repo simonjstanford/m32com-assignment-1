@@ -47,12 +47,12 @@ public abstract class Shape
             foreach (Point coord in coords)
             {
                 //check if a block is already filled by another shape.  
-                if (!String.IsNullOrEmpty(board[coord.X][coord.Y-1]))
+                if (!String.IsNullOrEmpty(board[coord.X][coord.Y - 1]))
                 {
                     return false;
                 }
             }
-            
+
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].Y -= 1;
@@ -69,17 +69,17 @@ public abstract class Shape
     public bool MoveLeft(string[][] board)
     {
         bool canMove = CheckIfCanMove(board);
-                if (canMove)
+        if (canMove)
         {
             foreach (Point coord in coords)
             {
                 //check if a block is already filled by another shape.  
-                if (!String.IsNullOrEmpty(board[coord.X-1][coord.Y]))
+                if (!String.IsNullOrEmpty(board[coord.X - 1][coord.Y]))
                 {
                     return false;
                 }
             }
-        
+
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X -= 1;
@@ -101,12 +101,12 @@ public abstract class Shape
             foreach (Point coord in coords)
             {
                 //check if a block is already filled by another shape.  
-                if (!String.IsNullOrEmpty(board[coord.X +1][coord.Y]))
+                if (!String.IsNullOrEmpty(board[coord.X + 1][coord.Y]))
                 {
                     return false;
                 }
             }
-            
+
             for (int i = 0; i < coords.Length; i++)
             {
                 coords[i].X += 1;
@@ -165,6 +165,14 @@ public abstract class Shape
         {
             newboard[coord.X][coord.Y] = colourHexCode;
         }
+
+
+        //Used for debug sets the active shape to 0,1,2,3 cell number.
+        //for (int i = 0; i < coords.Length; i++)
+        //{
+        //    newboard[coords[i].X][coords[i].Y] = i.ToString();
+        //}
+
         return newboard;
     }
 }

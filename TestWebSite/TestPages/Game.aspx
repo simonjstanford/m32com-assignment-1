@@ -37,6 +37,7 @@
             <asp:Button ID="btnRightWs" Text="Right (Webservice)" runat="server" OnClick="btnRightWs_Click" />
             <asp:Button ID="btnLeftWs" Text="Left (Webservice)" runat="server" OnClick="btnLeftWs_Click" />
             <asp:Button ID="btnDropWs" Text="Drop (Webservice)" runat="server" OnClick="btnDropWs_Click" />
+            <asp:Button ID="btnRotateWs" Text="Rotate (Webservice)" runat="server" OnClick="btnRotateWs_Click" />
             <asp:Button ID="btnGetBoardWs" Text="Get Board (Webservice)" runat="server" OnClick="btnGetBoardWs_Click" />
             <asp:Table ID="blocks" runat="server" BorderColor="Black" BorderStyle="Solid"></asp:Table>
             <br />
