@@ -23,6 +23,7 @@ public sealed class Game
     {
         _board = new Board();
         _player = player;
+        _board.Game = this;
     }
 
     public bool DropBlock()
