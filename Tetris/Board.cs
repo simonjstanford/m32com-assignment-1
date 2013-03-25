@@ -35,6 +35,14 @@ public class Board
             }
         }
 
+
+        //debug set bottom row complete
+        for (int j = 0; j < _boardHeight; j++)
+        {
+            _board[0][j] = "EEEEEE";
+        }
+
+
         _activeShape = getRandomShape(_boardWidth / 2, _boardHeight -1);
         _nextShape = getRandomShape(2, 2);
     }
@@ -58,10 +66,15 @@ public class Board
         else
         {
             _board = ToArray();
+            CheckFullRows();
             _nextShape.Reposition(_boardWidth / 2 - 1, _boardHeight - 1);
             _activeShape = _nextShape;
             _nextShape = getRandomShape(2, 2);
-            CheckFullRows();
+
+            if (!_activeShape.CanMoveDown(_board))
+            {
+                Game.State = State.GameOver;
+            }
             return false;
         }
     }

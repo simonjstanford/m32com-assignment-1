@@ -41,11 +41,17 @@ public abstract class Shape
     /// <returns></returns>
     public bool MoveDown(string[][] board)
     {
-        bool canMove = CheckIfCanMove(board);
+        bool canMove = CanMoveDown(board);
         if (canMove)
         {
             foreach (Point coord in coords)
             {
+                //is the block still on the board
+                if (((coord.Y -1 > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y -1 < 0) || (coord.X < 0)))
+                {
+                    return false;
+                }
+
                 //check if a block is already filled by another shape.  
                 if (!String.IsNullOrEmpty(board[coord.X][coord.Y - 1]))
                 {
@@ -62,17 +68,51 @@ public abstract class Shape
     }
 
     /// <summary>
-    /// Checks if shape can move left. If true, the shape coords and board array are both updated
+    /// Checks if shape can move down.
     /// </summary>
-    /// <param name="board"></param>
+    /// <param name="board">Game Board</param>
     /// <returns></returns>
-    public bool MoveLeft(string[][] board)
+    public bool CanMoveDown(string[][] board)
     {
-        bool canMove = CheckIfCanMove(board);
+        bool canMove = true;
         if (canMove)
         {
             foreach (Point coord in coords)
             {
+                //is the block still on the board
+                if (((coord.Y - 1 > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y - 1 < 0) || (coord.X < 0)))
+                {
+                    return false;
+                }
+
+                //check if a block is already filled by another shape.  
+                if (!String.IsNullOrEmpty(board[coord.X][coord.Y - 1]))
+                {
+                    return false;
+                }
+            }
+        }
+        return canMove;
+    }
+
+    /// <summary>
+    /// The shape coords are updated
+    /// </summary>
+    /// <param name="board">Game board</param>
+    /// <returns></returns>
+    public bool MoveLeft(string[][] board)
+    {
+        bool canMove = true;
+        if (canMove)
+        {
+            foreach (Point coord in coords)
+            {
+                //is the block still on the board
+                if (((coord.Y > board[board.Length - 1].Length) || (coord.X - 1 > board.Length -1 )) || ((coord.Y < 0) || (coord.X - 1 < 0)))
+                {
+                    return false;
+                }
+
                 //check if a block is already filled by another shape.  
                 if (!String.IsNullOrEmpty(board[coord.X - 1][coord.Y]))
                 {
@@ -95,11 +135,17 @@ public abstract class Shape
     /// <returns></returns>
     public bool MoveRight(string[][] board)
     {
-        bool canMove = CheckIfCanMove(board);
+        bool canMove = true;
         if (canMove)
         {
             foreach (Point coord in coords)
             {
+                //is the block still on the board
+                if (((coord.Y > board[board.Length - 1].Length) || (coord.X + 1 > board.Length - 1)) || ((coord.Y < 0) || (coord.X + 1 < 0)))
+                {
+                    return false;
+                }
+
                 //check if a block is already filled by another shape.  
                 if (!String.IsNullOrEmpty(board[coord.X + 1][coord.Y]))
                 {
@@ -113,20 +159,6 @@ public abstract class Shape
             }
         }
         return canMove;
-    }
-
-    protected bool CheckIfCanMove(string[][] board)
-    {
-        foreach (Point coord in coords)
-        {
-            //is block off board or at the bottom
-            //Length is one more than grid
-            if (((coord.Y >= board[board.Length - 1].Length) || (coord.X >= board.Length)) || ((coord.Y <= 0) || (coord.X <= 0)))
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     public string[][] ToArray()

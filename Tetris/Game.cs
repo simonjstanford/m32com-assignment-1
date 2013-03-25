@@ -90,6 +90,10 @@ public sealed class Game
         {
             return _state;
         }
+        set 
+        {
+            _state = value;
+        }
     }
 
     public Board Board

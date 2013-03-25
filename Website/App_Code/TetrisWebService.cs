@@ -32,9 +32,10 @@ public class TetrisWebService : WebService {
     //********************************************
 
     [WebMethod(EnableSession = true)]
-    public void StartGame(String player)
+    public string[][] StartGame(String player)
     {
         base.Session[GAMESESSIONINDEX] = new Game(player);
+        return GetBoard();
     }
 
     [WebMethod(EnableSession = true)]
@@ -63,43 +64,48 @@ public class TetrisWebService : WebService {
     //********************************************
 
     [WebMethod(EnableSession = true)]
-    public void MoveBlockLeft()
+    public string[][] MoveBlockLeft()
     {
         Game game = GetGame();
         game.MoveBlockLeft();
         SaveGame(game);
+        return GetBoard();
     }
 
     [WebMethod(EnableSession = true)]
-    public void MoveBlockRight()
+    public string[][] MoveBlockRight()
     {
         Game game = GetGame();
         game.MoveBlockRight();
         SaveGame(game);
+        return GetBoard();
     }
 
     [WebMethod(EnableSession = true)]
-    public void RotateBlock()
+    public string[][] RotateBlock()
     {
         Game game = GetGame();
         game.RotateBlock();
         SaveGame(game);
+        return GetBoard();
     }
 
     [WebMethod(EnableSession = true)]
-    public void MoveBlockDown()
+    public string[][] MoveBlockDown()
     {
         Game game = GetGame();
         game.MoveBlockDown();
         SaveGame(game);
+        return GetBoard();
     }
 
     [WebMethod(EnableSession = true)]
-    public void DropBlock()
+    public string[][] DropBlock()
     {
         Game game = GetGame();
         game.DropBlock();
         SaveGame(game);
+        return GetBoard();
     }
 
     //********************************************

@@ -24,7 +24,7 @@ public class J_Shape : Shape
 
     override public bool Rotate(string[][] board)
     {
-        bool canMove = CheckIfCanMove(board);
+        bool canMove = true;
         if (canMove)
         {
 
@@ -62,6 +62,12 @@ public class J_Shape : Shape
         }
         foreach (Point coord in coords)
         {
+            //is the block still on the board
+            if (((coord.Y > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y < 0) || (coord.X < 0)))
+            {
+                return false;
+            }
+
             //check if a block is already filled by another shape.  
             if (!String.IsNullOrEmpty(board[coord.X][coord.Y]))
             {
