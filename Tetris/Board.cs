@@ -13,6 +13,7 @@ public class Board
     private Shape _nextShape;
     private int _boardWidth;
     private int _boardHeight;
+    private Game _game;
 
     public Board()
     {
@@ -60,13 +61,57 @@ public class Board
             _nextShape.Reposition(_boardWidth / 2 - 1, _boardHeight - 1);
             _activeShape = _nextShape;
             _nextShape = getRandomShape(2, 2);
+            CheckFullRows();
             return false;
         }
     }
 
     public void CheckFullRows()
     {
-        //TODO:
+        for (int i = 0; i < _boardHeight; i++)
+        {
+            bool flag = true;
+            for (int j = 0; j < _boardWidth; j++)
+            {
+                if (String.IsNullOrEmpty(_board[j][i]))
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                RemoveRow(i);
+                _game.Score += 10;
+                CheckFullRows();
+            }
+        }
+    }
+
+    public bool RemoveRow(int rowNumber)
+    {
+        try
+        {
+            for (int i = rowNumber; i >= 0; i--)
+            {
+                for (int j = 0; j < _boardWidth; j++)
+                {
+                    if (i != 0)
+                    {
+                        _board[j][i] = _board[j][i - 1];
+                    }
+                    else
+                    {
+                        _board[j][i] = String.Empty;
+                    }
+                }
+            }
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     public bool DropBlock()
@@ -86,23 +131,22 @@ public class Board
         switch (random.Next(0, 7))
         {
             case 0:
-                return new I_Shape(topMiddleXCord, topMiddleYCord); 
+                return new I_Shape(topMiddleXCord, topMiddleYCord);
             case 1:
-                return new J_Shape(topMiddleXCord, topMiddleYCord); 
+                return new J_Shape(topMiddleXCord, topMiddleYCord);
             case 2:
-                return new L_Shape(topMiddleXCord, topMiddleYCord); 
+                return new L_Shape(topMiddleXCord, topMiddleYCord);
             case 3:
-                return new O_Shape(topMiddleXCord, topMiddleYCord); 
+                return new O_Shape(topMiddleXCord, topMiddleYCord);
             case 4:
-                return new S_Shape(topMiddleXCord, topMiddleYCord); 
+                return new S_Shape(topMiddleXCord, topMiddleYCord);
             case 5:
-                return new T_Shape(topMiddleXCord, topMiddleYCord); 
+                return new T_Shape(topMiddleXCord, topMiddleYCord);
             case 6:
-                return new Z_Shape(topMiddleXCord, topMiddleYCord); 
+                return new Z_Shape(topMiddleXCord, topMiddleYCord);
         }
 
         return null;
-
     }
 
     public bool RotateActiveShape()
@@ -116,6 +160,18 @@ public class Board
         get
         {
             return _nextShape;
+        }
+    }
+
+    public Game Game
+    {
+        get
+        {
+            return _game;
+        }
+        set 
+        {
+            _game = value;
         }
     }
 

@@ -15,6 +15,7 @@ public sealed class Game
     public Game()
     {
         _board = new Board();
+        _board.Game = this;
     }
 
     // Methods
@@ -76,6 +77,10 @@ public sealed class Game
         get
         {
             return _score;
+        }
+        set 
+        {
+            _score = value;
         }
     }
 

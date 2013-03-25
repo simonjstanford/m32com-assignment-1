@@ -166,7 +166,6 @@ public abstract class Shape
             newboard[coord.X][coord.Y] = colourHexCode;
         }
 
-
         //Used for debug sets the active shape to 0,1,2,3 cell number.
         //for (int i = 0; i < coords.Length; i++)
         //{
