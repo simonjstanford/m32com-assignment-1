@@ -37,10 +37,10 @@ public class Board
 
 
         //debug set bottom row complete
-        for (int j = 0; j < _boardHeight; j++)
-        {
-            _board[0][j] = "EEEEEE";
-        }
+        //for (int j = 0; j < _boardHeight; j++)
+        //{
+        //    _board[0][j] = "EEEEEE";
+        //}
 
 
         _activeShape = getRandomShape(_boardWidth / 2, _boardHeight -1);
