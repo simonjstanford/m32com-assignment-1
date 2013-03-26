@@ -26,7 +26,7 @@ public class Board
     private void startGame()
     {
         _board = new string[_boardWidth][];
-        for (int i = 0; i < _boardWidth ; i++)
+        for (int i = 0; i < _boardWidth; i++)
         {
             _board[i] = new string[_boardHeight];
             for (int j = 0; j < _boardHeight; j++)
@@ -35,15 +35,13 @@ public class Board
             }
         }
 
-
         //debug set bottom row complete
-        //for (int j = 0; j < _boardHeight; j++)
+        //for (int i = 0; i < _boardWidth; i++)
         //{
-        //    _board[0][j] = "EEEEEE";
+        //    _board[i][0] = "EEEEEE";
         //}
 
-
-        _activeShape = getRandomShape(_boardWidth / 2, _boardHeight -1);
+        _activeShape = getRandomShape(_boardWidth / 2, _boardHeight - 1);
         _nextShape = getRandomShape(2, 2);
     }
 
@@ -105,18 +103,15 @@ public class Board
     {
         try
         {
-            for (int i = rowNumber; i >= 0; i--)
+            //for each row form row to be removed to the _board height.....
+            for (int i = rowNumber; i <= _boardHeight - 1; i++)
             {
                 for (int j = 0; j < _boardWidth; j++)
                 {
-                    if (i != 0)
-                    {
-                        _board[j][i] = _board[j][i - 1];
-                    }
-                    else
-                    {
-                        _board[j][i] = String.Empty;
-                    }
+                    //move cell down
+                    _board[j][i] = _board[j][i + 1];
+                    //empty old cell
+                    _board[j][i + 1] = String.Empty;
                 }
             }
             return true;
@@ -182,7 +177,7 @@ public class Board
         {
             return _game;
         }
-        set 
+        set
         {
             _game = value;
         }
