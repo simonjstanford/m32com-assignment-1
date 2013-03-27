@@ -42,7 +42,15 @@ public class TetrisWebService : WebService {
     public bool GetGameState()
     {
         //returns true if game is in play
-        return (GetGame().State != State.Playing);
+        switch (GetGame().State)
+        {
+            case State.Playing:
+                return true;;
+            case State.GameOver:
+                return false;
+            default:
+                return true;
+        }
     }
 
     [WebMethod(EnableSession = true)]
