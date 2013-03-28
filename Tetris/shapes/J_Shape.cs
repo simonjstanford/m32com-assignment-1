@@ -13,7 +13,7 @@ public class J_Shape : Shape
         : base()
     {
         colourHexCode = "0000FF";
-        coords = new Point[] { new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord), new Point(topMiddleXCord + 1, topMiddleYCord - 1) };
+        Reposition(topMiddleXCord, topMiddleYCord);
         base.Type = ShapeTypes.J;
     }
 
@@ -25,12 +25,15 @@ public class J_Shape : Shape
     override public bool Rotate(string[][] board)
     {
         bool canMove = true;
+        Point[] oldCoords = new Point[4];
+        oldCoords = coords.ToArray();
+        Rotation oldRotation = new Rotation();
+        oldRotation = rotation;
+
         if (canMove)
         {
-
             switch (rotation)
             {
-
                 case Rotation.North:
                     rotation = Rotation.East;
                     coords[0].X += 2; coords[0].Y += 2;
@@ -65,12 +68,16 @@ public class J_Shape : Shape
             //is the block still on the board
             if (((coord.Y > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y < 0) || (coord.X < 0)))
             {
+                coords = oldCoords;
+                rotation = oldRotation;
                 return false;
             }
 
             //check if a block is already filled by another shape.  
             if (!String.IsNullOrEmpty(board[coord.X][coord.Y]))
             {
+                coords = oldCoords;
+                rotation = oldRotation;
                 return false;
             }
         }

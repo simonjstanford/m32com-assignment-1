@@ -180,16 +180,13 @@ public abstract class Shape
     public string[][] AddShapeToBoard(string[][] board)
     {
         string[][] newboard = new string[board.Length][];
+
         for (int i = 0; i < board.Length; i++)
         {
             newboard[i] = new string[board[board.Length - 1].Length];
-        }
-
-        for (int j = 0; j < board.Length; j++)
-        {
-            for (int k = 0; k < board[j].Length; k++)
+            for (int k = 0; k < board[i].Length; k++)
             {
-                newboard[j][k] = board[j][k];
+                newboard[i][k] = board[i][k];
             }
         }
 

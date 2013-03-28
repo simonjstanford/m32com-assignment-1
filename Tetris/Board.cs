@@ -17,7 +17,7 @@ public class Board
 
     public Board()
     {
-        _boardHeight = 30;
+        _boardHeight = 25;
         _boardWidth = 12;
 
         startGame();
