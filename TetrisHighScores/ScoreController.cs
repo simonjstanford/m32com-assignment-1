@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml;
 using System.Data;
 using System.Security.Cryptography;
+using System.Configuration;
 
 //Singleton class to hold top 12 scores scores from game 
 
@@ -25,7 +26,7 @@ namespace TetrisHighScores
         const string PLAYER = "Player";
         const string SCORE = "Score";
         const string DATE = "Date";
-        
+
         // Methods
         private ScoreController()
         {
@@ -84,7 +85,8 @@ namespace TetrisHighScores
                     //need to move the key into the webconfig
                     CspParameters parameters = new CspParameters
                     {
-                        KeyContainerName = "XML_ENC_RSA_KEY"
+                        KeyContainerName = ConfigurationSettings.AppSettings["ScoresFileEncryptionKey"]
+                        //KeyContainerName = "XML_ENC_RSA_KEY"
                     };
                     RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider(parameters);
                     // Decrypt the "Player" element.
@@ -125,6 +127,8 @@ namespace TetrisHighScores
                 writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8'");
                 writer.WriteStartElement(SCORES);
                 writer.Close();
+
+
                 //Blank the file
                 xmlDoc.PreserveWhitespace = true;
                 xmlDoc.Load(FileName);
@@ -133,7 +137,8 @@ namespace TetrisHighScores
                 // which will then be imbedded in the XML document.  
                 CspParameters parameters = new CspParameters
                 {
-                    KeyContainerName = "XML_ENC_RSA_KEY"
+                    KeyContainerName = ConfigurationSettings.AppSettings["ScoresFileEncryptionKey"]
+                    //KeyContainerName = "XML_ENC_RSA_KEY"
                 };
                 RSACryptoServiceProvider rsaKey = new RSACryptoServiceProvider(parameters);
                 // Decrypt the "Player" element.
@@ -142,27 +147,27 @@ namespace TetrisHighScores
                 foreach (PlayerScore score in scores)
                 {
                     XmlNode documentNode = xmlDoc.DocumentElement;
-                    
+
                     XmlElement highScoreChild = xmlDoc.CreateElement(HIGHSCORE);
-                    
+
                     XmlElement ScoreElement = xmlDoc.CreateElement(SCORE);
                     XmlElement PlayerElement = xmlDoc.CreateElement(PLAYER);
                     XmlElement DateElement = xmlDoc.CreateElement(DATE);
-                    
+
                     XmlText scoreText = xmlDoc.CreateTextNode("score");
                     XmlText playerText = xmlDoc.CreateTextNode("player");
                     XmlText dateText = xmlDoc.CreateTextNode("date");
-                    
+
                     documentNode.AppendChild(highScoreChild);
-                    
+
                     highScoreChild.AppendChild(ScoreElement);
                     highScoreChild.AppendChild(PlayerElement);
                     highScoreChild.AppendChild(DateElement);
-                    
+
                     ScoreElement.AppendChild(scoreText);
                     PlayerElement.AppendChild(playerText);
                     DateElement.AppendChild(dateText);
-                    
+
                     scoreText.Value = score.Score.ToString();
                     playerText.Value = score.Player;
                     dateText.Value = score.Date.ToString();
@@ -174,7 +179,6 @@ namespace TetrisHighScores
             }
             catch (Exception exception4)
             {
-                Console.Write(exception4.ToString());
             }
         }
 
@@ -201,7 +205,7 @@ namespace TetrisHighScores
 
             List<PlayerScore> scoresList = LoadScores();
 
-            foreach (PlayerScore score in scoresList) 
+            foreach (PlayerScore score in scoresList)
             {
                 DataRow scoreRow = scoreTable.NewRow();
                 scoreRow[PLAYER] = score.Player;

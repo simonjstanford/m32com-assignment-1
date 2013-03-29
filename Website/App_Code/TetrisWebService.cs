@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Services;
 using System.Data;
 using TetrisHighScores;
+using System.Configuration;
 
 /// <summary>
 /// Summary description for TetrisWebService
@@ -131,7 +132,7 @@ public class TetrisWebService : WebService {
     public DataTable GetHighScores()
     {
         //file location need to be moved to web.config
-        ScoreController.Instance.setLocation(base.Server.MapPath("~/Scores.xml"));
+        ScoreController.Instance.setLocation(base.Server.MapPath(ConfigurationManager.AppSettings["ScoresFileLocation"]));
         return ScoreController.Instance.getScoreTable();
     }
 
@@ -141,7 +142,7 @@ public class TetrisWebService : WebService {
         if (GetGame().Score > 0)
         {
             //file location need to be moved to web.config
-            ScoreController.Instance.setLocation(base.Server.MapPath("~/Scores.xml"));
+            ScoreController.Instance.setLocation(base.Server.MapPath(ConfigurationManager.AppSettings["ScoresFileLocation"]));
             ScoreController.Instance.Add(GetGame().Player,GetGame().Score);
         }
     }
