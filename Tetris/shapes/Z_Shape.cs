@@ -67,7 +67,7 @@ public class Z_Shape : Shape
         foreach (Point coord in coords)
         {
             //is the block still on the board
-            if (((coord.Y > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y < 0) || (coord.X < 0)))
+            if ((coord.Y > board[board.Length - 1].Length - 1) || (coord.X > board.Length - 1) || (coord.Y < 0) || (coord.X < 0))
             {
                 coords = oldCoords;
                 rotation = oldRotation;
