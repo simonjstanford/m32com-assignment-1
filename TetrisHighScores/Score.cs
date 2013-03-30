@@ -13,15 +13,15 @@ namespace TetrisHighScores
         private DateTime _date;
 
         // Methods
-        public int CompareTo(object obj)
+        public int CompareTo(Object  obj)
         {
-            PlayerScore score = (PlayerScore)obj;
-            Int32 num = _score.CompareTo(score.Score);
-            if (num == 0)
-            {
-                num = _score.CompareTo(score.Score);
-            }
-            return num;
+            PlayerScore scoreToCompare = obj as PlayerScore;
+            if (this.Score > scoreToCompare.Score)
+                return 1;
+            else if (this.Score < scoreToCompare.Score)
+                return -1;
+            else
+                return 0;
         }
 
         // Properties
