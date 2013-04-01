@@ -137,14 +137,15 @@ public class TetrisWebService : WebService {
     }
 
     [WebMethod(EnableSession = true)]
-    public void SubmitScore()
+    public Boolean SubmitScore()
     {
         if (GetGame().Score > 0)
         {
             //file location need to be moved to web.config
             ScoreController.Instance.setLocation(base.Server.MapPath(ConfigurationManager.AppSettings["ScoresFileLocation"]));
-            ScoreController.Instance.Add(GetGame().Player,GetGame().Score);
+            return ScoreController.Instance.Add(GetGame().Player,GetGame().Score);
         }
+        return false;
     }
 
 
