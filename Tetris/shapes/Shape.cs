@@ -47,7 +47,7 @@ public abstract class Shape
             foreach (Point coord in coords)
             {
                 //is the block still on the board
-                if (((coord.Y -1 > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y -1 < 0) || (coord.X < 0)))
+                if (((coord.Y - 1 > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y - 1 < 0) || (coord.X < 0)))
                 {
                     return false;
                 }
@@ -80,7 +80,7 @@ public abstract class Shape
             foreach (Point coord in coords)
             {
                 //is the block still on the board
-                if (((coord.Y - 1 > board[board.Length - 1].Length) || (coord.X > board.Length)) || ((coord.Y - 1 < 0) || (coord.X < 0)))
+                if (coord.Y - 1 < 0)
                 {
                     return false;
                 }
@@ -108,7 +108,7 @@ public abstract class Shape
             foreach (Point coord in coords)
             {
                 //is the block still on the board
-                if (((coord.Y > board[board.Length - 1].Length) || (coord.X - 1 > board.Length -1 )) || ((coord.Y < 0) || (coord.X - 1 < 0)))
+                if ((coord.Y < 0) || (coord.X - 1 < 0))
                 {
                     return false;
                 }
@@ -141,7 +141,7 @@ public abstract class Shape
             foreach (Point coord in coords)
             {
                 //is the block still on the board
-                if (((coord.Y > board[board.Length - 1].Length) || (coord.X + 1 > board.Length - 1)) || ((coord.Y < 0) || (coord.X + 1 < 0)))
+                if ((coord.X + 1 > board.Length - 1) || (coord.Y < 0))
                 {
                     return false;
                 }
@@ -194,13 +194,53 @@ public abstract class Shape
         {
             newboard[coord.X][coord.Y] = colourHexCode;
         }
-
-        //Used for debug sets the active shape to 0,1,2,3 cell number.
-        //for (int i = 0; i < coords.Length; i++)
-        //{
-        //    newboard[coords[i].X][coords[i].Y] = i.ToString();
-        //}
-
         return newboard;
+    }
+
+    /// <summary>
+    /// Checks if a shape is near the edge of the board, and is so moves the shape over to let it rotate
+    /// </summary>
+    /// <param name="board">Game board</param>
+    /// <param name="oldRotation">The old north/east/sound/west rotation value - used to return the shape the old position if it cant move</param>
+    /// <param name="oldCoords">The old shape co-ordinates value - used to return the shape the old position if it cant move</param>
+    /// <returns></returns>
+    protected bool moveRotate(string[][] board, Rotation oldRotation, Point[] oldCoords)
+    {
+        int shiftLeft = 0;
+        int shiftRight = 0;
+        int shiftDown = 0;
+
+        foreach (Point coord in coords)
+        {
+            if (coord.X < 0 && Math.Abs(coord.X) > shiftRight)
+                shiftRight = Math.Abs(coord.X);
+
+            if (coord.X > board.Length - 1 && (coord.X - (board.Length - 1)) > shiftLeft)
+                shiftLeft = coord.X - (board.Length - 1);
+
+            if (coord.Y > board[board.Length - 1].Length - 1)
+                shiftDown++;
+        }
+
+        for (int i = 0; i < coords.Length; i++)
+            coords[i].X += shiftRight;
+
+        for (int i = 0; i < coords.Length; i++)
+            coords[i].X -= shiftLeft;
+
+        for (int i = 0; i < coords.Length; i++)
+            coords[i].Y -= shiftDown;
+
+        foreach (Point coord in coords)
+        {
+            //check if a block is already filled by another shape.  
+            if (!String.IsNullOrEmpty(board[coord.X][coord.Y]))
+            {
+                coords = oldCoords;
+                rotation = oldRotation;
+                return false;
+            }
+        }
+        return true;
     }
 }
