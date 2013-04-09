@@ -19,10 +19,28 @@ namespace TetrisHighScores
 {
     class TrippleDESDocumentEncryption
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TrippleDESDocumentEncryption"/> class.
+        /// </summary>
         public TrippleDESDocumentEncryption()
         {
         }
 
+        /// <summary>
+        /// Encrypts the specified doc.
+        /// </summary>
+        /// <param name="Doc">The doc.</param>
+        /// <param name="ElementToEncrypt">The element to encrypt.</param>
+        /// <param name="Alg">The alg.</param>
+        /// <param name="KeyName">Name of the key.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// Doc
+        /// or
+        /// ElementToEncrypt
+        /// or
+        /// Alg
+        /// </exception>
+        /// <exception cref="System.Xml.XmlException">The specified element was not found</exception>
         public static void Encrypt(XmlDocument Doc, string ElementToEncrypt, RSA Alg, string KeyName)
         {
             // Check the arguments.  
@@ -118,6 +136,19 @@ namespace TetrisHighScores
 
         }
 
+        /// <summary>
+        /// Decrypts the specified doc.
+        /// </summary>
+        /// <param name="Doc">The doc.</param>
+        /// <param name="Alg">The alg.</param>
+        /// <param name="KeyName">Name of the key.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// Doc
+        /// or
+        /// Alg
+        /// or
+        /// KeyName
+        /// </exception>
         public static void Decrypt(XmlDocument Doc, RSA Alg, string KeyName)
         {
             // Check the arguments.  

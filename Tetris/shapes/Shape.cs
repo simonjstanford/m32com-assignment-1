@@ -14,6 +14,9 @@ public abstract class Shape
     protected Point[] coords;
     public ShapeTypes Type { get; protected set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Shape"/> class.
+    /// </summary>
     public Shape()
     {
         rotation = Rotation.North;
@@ -30,7 +33,7 @@ public abstract class Shape
     /// <summary>
     /// Rotates the shape
     /// </summary>
-    /// /// <param name="board"></param>
+    /// <param name="board"></param>
     /// <returns></returns>
     public abstract bool Rotate(string[][] board);
 
@@ -161,6 +164,10 @@ public abstract class Shape
         return canMove;
     }
 
+    /// <summary>
+    /// Turns the shape into an array.
+    /// </summary>
+    /// <returns></returns>
     public string[][] ToArray()
     {
         string[][] shapeArray = new string[4][];
@@ -177,6 +184,11 @@ public abstract class Shape
         return shapeArray;
     }
 
+    /// <summary>
+    /// Adds the shape to the game.
+    /// </summary>
+    /// <param name="board">The game board.</param>
+    /// <returns></returns>
     public string[][] AddShapeToBoard(string[][] board)
     {
         string[][] newboard = new string[board.Length][];

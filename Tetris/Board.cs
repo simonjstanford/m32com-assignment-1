@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for Board
+/// Game board
 /// </summary>
 public class Board
 {
@@ -15,6 +15,9 @@ public class Board
     private int _boardHeight;
     private Game _game;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Board"/> class.
+    /// </summary>
     public Board()
     {
         _boardHeight = 25;
@@ -23,6 +26,9 @@ public class Board
         startGame();
     }
 
+    /// <summary>
+    /// Starts the game.
+    /// </summary>
     private void startGame()
     {
         _board = new string[_boardWidth][];
@@ -35,26 +41,32 @@ public class Board
             }
         }
 
-        //debug set bottom row complete
-        //for (int i = 0; i < _boardWidth; i++)
-        //{
-        //    _board[i][0] = "EEEEEE";
-        //}
-
         _activeShape = getRandomShape(_boardWidth / 2, _boardHeight - 1);
         _nextShape = getRandomShape(2, 2);
     }
 
+    /// <summary>
+    /// Moves the active shape left.
+    /// </summary>
+    /// <returns></returns>
     public bool MoveActiveShapeLeft()
     {
         return _activeShape.MoveLeft(_board); //return true if shape moved, false otherwise
     }
 
+    /// <summary>
+    /// Moves the active shape right.
+    /// </summary>
+    /// <returns></returns>
     public bool MoveActiveShapeRight()
     {
         return _activeShape.MoveRight(_board); //return true if shape moved, false otherwise
     }
 
+    /// <summary>
+    /// Moves the active shape down.
+    /// </summary>
+    /// <returns></returns>
     public bool MoveActiveShapeDown()
     {
         if (_activeShape.MoveDown(_board))
@@ -77,6 +89,9 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Checks for full rows.
+    /// </summary>
     public void CheckFullRows()
     {
         for (int i = 0; i < _boardHeight; i++)
@@ -99,6 +114,11 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Removes the row and moves all rows above down.
+    /// </summary>
+    /// <param name="rowNumber">The row number to remove.</param>
+    /// <returns></returns>
     public bool RemoveRow(int rowNumber)
     {
         try
@@ -122,6 +142,10 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Drops the block.
+    /// </summary>
+    /// <returns></returns>
     public bool DropBlock()
     {
         bool flag = false;
@@ -132,6 +156,12 @@ public class Board
         return flag;
     }
 
+    /// <summary>
+    /// Gets the next random shape.
+    /// </summary>
+    /// <param name="topMiddleXCord">The top middle X cord.</param>
+    /// <param name="topMiddleYCord">The top middle Y cord.</param>
+    /// <returns></returns>
     private Shape getRandomShape(int topMiddleXCord, int topMiddleYCord)
     {
         Random random = new Random();
@@ -157,12 +187,23 @@ public class Board
         return null;
     }
 
+    /// <summary>
+    /// Rotates the active shape.
+    /// </summary>
+    /// <returns></returns>
     public bool RotateActiveShape()
     {
         return _activeShape.Rotate(_board); //return true if shape moved, false otherwise
     }
 
     // Properties
+
+    /// <summary>
+    /// Gets the next shape.
+    /// </summary>
+    /// <value>
+    /// The next shape.
+    /// </value>
     public Shape NextShape
     {
         get
@@ -171,6 +212,12 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Gets or sets the game.
+    /// </summary>
+    /// <value>
+    /// The game.
+    /// </value>
     public Game Game
     {
         get
@@ -183,6 +230,10 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Turns the borad to an array.
+    /// </summary>
+    /// <returns></returns>
     public string[][] ToArray()
     {
         return _activeShape.AddShapeToBoard(_board);

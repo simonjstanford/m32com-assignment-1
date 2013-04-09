@@ -28,10 +28,19 @@ namespace TetrisHighScores
         const string DATE = "Date";
 
         // Methods
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ScoreController"/> class from being created.
+        /// </summary>
         private ScoreController()
         {
         }
 
+        /// <summary>
+        /// Adds the specified player.
+        /// </summary>
+        /// <param name="player">The player.</param>
+        /// <param name="score">The score.</param>
+        /// <returns></returns>
         public bool Add(string player, Int32 score)
         {
             List<PlayerScore> list = LoadScores();
@@ -68,6 +77,11 @@ namespace TetrisHighScores
             return flag;
         }
 
+        /// <summary>
+        /// Loads the scores.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">Error occured while reading data.</exception>
         private List<PlayerScore> LoadScores()
         {
             if (File.Exists(FileName))
@@ -115,6 +129,10 @@ namespace TetrisHighScores
             return new List<PlayerScore>();
         }
 
+        /// <summary>
+        /// Saves the scores.
+        /// </summary>
+        /// <param name="scores">The scores.</param>
         private void SaveScores(List<PlayerScore> scores)
         {
             try
@@ -182,6 +200,10 @@ namespace TetrisHighScores
             }
         }
 
+        /// <summary>
+        /// Gets the score table.
+        /// </summary>
+        /// <returns></returns>
         public DataTable getScoreTable()
         {
             DataTable scoreTable = new DataTable(SCORES);
@@ -216,12 +238,22 @@ namespace TetrisHighScores
             return scoreTable;
         }
 
+        /// <summary>
+        /// Sets the location.
+        /// </summary>
+        /// <param name="Location">The location.</param>
         public void setLocation(string Location)
         {
             FileName = Location;
         }
 
         // Properties
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <value>
+        /// The instance.
+        /// </value>
         public static ScoreController Instance
         {
             get

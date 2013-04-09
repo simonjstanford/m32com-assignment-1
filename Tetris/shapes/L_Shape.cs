@@ -9,6 +9,11 @@ using System.Drawing;
 /// </summary>
 public class L_Shape : Shape
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="L_Shape"/> class.
+    /// </summary>
+    /// <param name="topMiddleXCord">The top middle X cord.</param>
+    /// <param name="topMiddleYCord">The top middle Y cord.</param>
     public L_Shape(int topMiddleXCord, int topMiddleYCord)
         : base()
     {
@@ -17,11 +22,21 @@ public class L_Shape : Shape
         base.Type = ShapeTypes.L;
     }
 
+    /// <summary>
+    /// Used when moving the shape from next shape board to game board
+    /// </summary>
+    /// <param name="topMiddleXCord"></param>
+    /// <param name="topMiddleYCord"></param>
     override public void Reposition(int topMiddleXCord, int topMiddleYCord)
     {
         coords = new Point[] { new Point(topMiddleXCord + 1, topMiddleYCord), new Point(topMiddleXCord, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord), new Point(topMiddleXCord - 1, topMiddleYCord - 1) };
     }
 
+    /// <summary>
+    /// Rotates the shape
+    /// </summary>
+    /// <param name="board"></param>
+    /// <returns></returns>
     override public bool Rotate(string[][] board)
     {
         Point[] oldCoords = new Point[4];

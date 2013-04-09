@@ -9,11 +9,21 @@ public sealed class Player
     private String _name;
 
     // Methods
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Player"/> class.
+    /// </summary>
     public Player()
     {
     }
 
     // Properties
+
+    /// <summary>
+    /// Gets or sets the player name.
+    /// </summary>
+    /// <value>
+    /// The player name.
+    /// </value>
     public String Name
     {
         get
