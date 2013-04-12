@@ -112,7 +112,8 @@ namespace TetrisHighScores
         /// Reads the high scores XML file and returns a collection of PlayerScore objects, each representing a high score
         /// As the high scores XML file is encrypted, this method decypts it.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A collection of PlayerScore objects representing the high scores</returns>
+        /// <exception cref="System.Exception">Error occured while reading data.</exception>
         private List<PlayerScore> LoadScores()
         {
             if (File.Exists(FileName))
