@@ -1,19 +1,20 @@
 ﻿using System;
 
 /// <summary>
-/// The Player of the game
+/// A class representing the player of the game
 /// </summary>
 public sealed class Player
 {
     // Fields
-    private String _name;
+    private String _name; // the player's name
 
     // Methods
     /// <summary>
-    /// Initializes a new instance of the <see cref="Player"/> class.
+    /// Constructor that initializes a new instance of the <see cref="Player"/> class.
     /// </summary>
     public Player()
     {
+        //no action is necessary
     }
 
     // Properties
