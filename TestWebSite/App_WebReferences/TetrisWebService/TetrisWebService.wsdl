@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://M32COM-Tetris.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://M32COM-Tetris.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://M32COM-Tetris.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://M32COM-Tetris.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://M32COM-Tetris.org/">
       <s:element name="StartGame">
@@ -10,8 +10,22 @@
         </s:complexType>
       </s:element>
       <s:element name="StartGameResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartGameResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetGameState">
         <s:complexType />
       </s:element>
@@ -32,16 +46,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetNextShape">
         <s:complexType />
       </s:element>
@@ -56,31 +60,51 @@
         <s:complexType />
       </s:element>
       <s:element name="MoveBlockLeftResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MoveBlockLeftResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="MoveBlockRight">
         <s:complexType />
       </s:element>
       <s:element name="MoveBlockRightResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MoveBlockRightResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="RotateBlock">
         <s:complexType />
       </s:element>
       <s:element name="RotateBlockResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RotateBlockResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="MoveBlockDown">
         <s:complexType />
       </s:element>
       <s:element name="MoveBlockDownResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MoveBlockDownResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="DropBlock">
         <s:complexType />
       </s:element>
       <s:element name="DropBlockResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DropBlockResult" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetScore">
         <s:complexType />
@@ -113,7 +137,11 @@
         <s:complexType />
       </s:element>
       <s:element name="SubmitScoreResponse">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SubmitScoreResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="HelloWorld">
         <s:complexType />
@@ -501,10 +529,10 @@
   </wsdl:binding>
   <wsdl:service name="TetrisWebService">
     <wsdl:port name="TetrisWebServiceSoap" binding="tns:TetrisWebServiceSoap">
-      <soap:address location="http://localhost:15726/Website/TetrisWebService.asmx" />
+      <soap:address location="http://www.simonjstanford.co.uk/tetriswebservice/TetrisWebService.asmx" />
     </wsdl:port>
     <wsdl:port name="TetrisWebServiceSoap12" binding="tns:TetrisWebServiceSoap12">
-      <soap12:address location="http://localhost:15726/Website/TetrisWebService.asmx" />
+      <soap12:address location="http://www.simonjstanford.co.uk/tetriswebservice/TetrisWebService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

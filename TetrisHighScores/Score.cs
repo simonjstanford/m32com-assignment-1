@@ -5,39 +5,22 @@ using System.Text;
 
 namespace TetrisHighScores
 {
+    /// <summary>
+    /// A class that is used to keep track of a player and their score for high score logging in Scores.xml.  Implements the IComparable interface, so that scores can be compared
+    /// </summary>
     public class PlayerScore : IComparable
     {
-        // Fields
-        private string _player;
-        private Int32 _score;
-        private DateTime _date;
+        #region Class Fields
 
-        // Methods
-        /// <summary>
-        /// Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
-        /// </summary>
-        /// <param name="obj">An object to compare with this instance.</param>
-        /// <returns>
-        /// A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="obj" /> in the sort order. Zero This instance occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows <paramref name="obj" /> in the sort order.
-        /// </returns>
-        public int CompareTo(Object  obj)
-        {
-            PlayerScore scoreToCompare = obj as PlayerScore;
-            if (this.Score > scoreToCompare.Score)
-                return 1;
-            else if (this.Score < scoreToCompare.Score)
-                return -1;
-            else
-                return 0;
-        }
+        private string _player; // the players' name
+        private Int32 _score; // the players score
+        private DateTime _date; //the date and time the score was submitted
 
-        // Properties
-        /// <summary>
-        /// Gets or sets the player.
-        /// </summary>
-        /// <value>
-        /// The player.
-        /// </value>
+        #endregion
+
+        #region Class Properties
+
+        //the player's name
         public string Player
         {
             get
@@ -50,12 +33,7 @@ namespace TetrisHighScores
             }
         }
 
-        /// <summary>
-        /// Gets or sets the score.
-        /// </summary>
-        /// <value>
-        /// The score.
-        /// </value>
+        //the player's score
         public Int32 Score
         {
             get
@@ -68,12 +46,7 @@ namespace TetrisHighScores
             }
         }
 
-        /// <summary>
-        /// Gets or sets the date.
-        /// </summary>
-        /// <value>
-        /// The date.
-        /// </value>
+        //the date and time the score was submitted
         public DateTime Date
         {
             get
@@ -85,5 +58,27 @@ namespace TetrisHighScores
                 _date = value;
             }
         }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Compares two PlayerScore objects to determine which one has the highest score
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int CompareTo(Object obj)
+        {
+            PlayerScore scoreToCompare = obj as PlayerScore;
+            if (this.Score > scoreToCompare.Score)
+                return 1;
+            else if (this.Score < scoreToCompare.Score)
+                return -1;
+            else
+                return 0;
+        }
+
+        #endregion
     }
 }

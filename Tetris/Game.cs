@@ -1,7 +1,8 @@
 ﻿using System;
 
 /// <summary>
-/// The game and its status
+/// Class representing the entire game.  This is a management layer that passes on requests 
+/// from the web service to the Board object for shape movement, and also tracks the player's score
 /// </summary>
 public sealed class Game
 {

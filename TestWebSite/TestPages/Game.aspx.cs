@@ -5,16 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net;
+using TetrisWebService;
 
 public partial class TestPages_Game : System.Web.UI.Page
 {
 
     private const string TETRISWEBSERVICESESSIONINDEX = "TetrisWebService";
 
-    private TetrisWebService.TetrisWebService GetWS()
+    private TetrisWebService.TetrisWebServiceSoapClient GetWS()
     {
         ValidateSession();
-        return base.Session[TETRISWEBSERVICESESSIONINDEX] as TetrisWebService.TetrisWebService;
+        return base.Session[TETRISWEBSERVICESESSIONINDEX] as TetrisWebService.TetrisWebServiceSoapClient;
     }
 
     private void ValidateSession()
@@ -22,9 +23,9 @@ public partial class TestPages_Game : System.Web.UI.Page
         if (base.Session[TETRISWEBSERVICESESSIONINDEX] == null)
         {
             // create the proxy
-            TetrisWebService.TetrisWebService ws = new TetrisWebService.TetrisWebService();
+            TetrisWebService.TetrisWebServiceSoapClient ws = new TetrisWebService.TetrisWebServiceSoapClient();
             // create a container for the SessionID cookie
-            ws.CookieContainer = new CookieContainer();
+            //ws.CookieContainer = new CookieContainer();
             //Add to session
             base.Session[TETRISWEBSERVICESESSIONINDEX] = ws;
         }

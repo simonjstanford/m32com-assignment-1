@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using TetrisWebService;
 
 public partial class TestPages_ViewHighScores : System.Web.UI.Page
 {
@@ -15,7 +16,7 @@ public partial class TestPages_ViewHighScores : System.Web.UI.Page
 
     protected void btnGetHighScoreWs_Click(object sender, EventArgs e)
     {
-        TetrisWebService.TetrisWebService ws = new TetrisWebService.TetrisWebService();
+        TetrisWebService.TetrisWebServiceSoapClient ws = new TetrisWebService.TetrisWebServiceSoapClient();
         DataTable dt = ws.GetHighScores();
     }
 

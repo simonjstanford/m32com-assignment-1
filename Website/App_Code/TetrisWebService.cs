@@ -8,7 +8,7 @@ using TetrisHighScores;
 using System.Configuration;
 
 /// <summary>
-/// Summary description for TetrisWebService
+/// The class that holds all the web service methods for the web service based game Tetris
 /// </summary>
 [WebService(Namespace = "http://M32COM-Tetris.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -17,8 +17,8 @@ using System.Configuration;
 public class TetrisWebService : WebService {
 
     // Fields
-    private const string GAMESESSIONINDEX = "Tetris";
-    private const string GUESTUSERNAME = "Guest";
+    private const string GAMESESSIONINDEX = "Tetris"; //The name of the session state object that the Game object is saved to/retrieved from
+    private const string GUESTUSERNAME = "Guest"; //The default player name if none is given
 
     public TetrisWebService () {
         //Uncomment the following line if using designed components 

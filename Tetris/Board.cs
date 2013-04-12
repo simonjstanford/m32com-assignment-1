@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Game board
+/// Class representing the game board.  Holds all shapes, and is responsible for shape movement and row removal.
 /// </summary>
 public class Board
 {
