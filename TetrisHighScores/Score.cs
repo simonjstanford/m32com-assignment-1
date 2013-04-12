@@ -20,7 +20,10 @@ namespace TetrisHighScores
 
         #region Class Properties
 
-        //the player's name
+        /// <summary>
+        /// Gets or sets the player's name
+        /// </summary>
+        /// <value>The player</value>
         public string Player
         {
             get
@@ -33,7 +36,10 @@ namespace TetrisHighScores
             }
         }
 
-        //the player's score
+        /// <summary>
+        /// Gets or sets the player' score
+        /// </summary>
+        /// <value>The score</value>
         public Int32 Score
         {
             get
@@ -46,7 +52,10 @@ namespace TetrisHighScores
             }
         }
 
-        //the date and time the score was submitted
+        /// <summary>
+        /// Gets or sets the date/time the score was submitted
+        /// </summary>
+        /// <value>The date/time</value>
         public DateTime Date
         {
             get
